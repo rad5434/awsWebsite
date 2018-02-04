@@ -31677,135 +31677,301 @@ module.exports = {
   </script>
   <script>
 
-    var sketch = function(p){
+    
+var sketch = function(p,num){
 
-        var sketchObject;
-        var tempObject
-        var count=0;
-        var len=0;
-        var y_axis=[]
-        var temp=10;
-        for (var i=0; i<num;i++){
-            y_axis.push(temp);
-            temp=temp+100
-            //console.log(num)
-        }
-        //console.log(num)
-        var ycolor
-        //var y_axis=[10,60,110,160,210,260,210,260,310,360,410,460];
-        //console.log(y_axis);
-        //console.log("ola amigo hey hey")
-        p.setup = function() {
-            //console.log("ola amigo 2.0");
-            p.createCanvas(800, 800);
-            p.stroke(255);     // Set line drawing color to white
-            p.frameRate(30);
-            getdata(checkdata);
-            p.frameRate(30);
-            //console.log("setup");
-            //console.log(data);
-            //console.log("setup done")
-        };
+    var sketchObject;
+    var tempObject
+    var count=0;
+    var len=0;
+    var y_axis=[]
+    var temp=10;
+    var flag=0;
+    for (var i=0; i<num;i++){
+        y_axis.push(temp);
+        temp=temp+100
+    }
 
-        //console.log("ola amigo hey hey")
-        p.draw = function() {
-            //console.log("starting")
-            if(count!=num){
-                if(sketchObject){
-                    //console.log("starting")
-                    //console.log(sketchObject.results[0].x_data)
-                    if(sketchObject.results[count]){
-                        tempObject=sketchObject.results[count];
-                    }
-                    var i =0;
-                    p.frameRate(12);
-                    var z = p.color('black');
-                    p.stroke(z);
-                    if(len<tempObject.x_data.length){
-                        p.line((tempObject.x_data[len]/2)+200, (tempObject.y_data[len]/2)+300, (tempObject.x_data[len+1]/2)+200, (tempObject.y_data[len+1]/2)+300);
-                        len+=2;
-                    }
-                    else{ //send it to another sketch from here
-                        //var myp5 = new p5(t,tempObject, 'c2');
-                        var c = document.createElement("canvas");
-                        c.id = "CursorLayer";
-                        c.width = 150;
-                        c.height = num*100;
-                        c.style.zIndex = 8;
-                        c.style.position = "absolute";
-                        c.style.border = "1px solid";
-                        c.style.left="1500px";
-                        c.style.top="300px";
+    var mycolor
+    //var y_axis=[10,60,110,160,210,260,210,260,310,360,410,460];
+    console.log(y_axis);
 
-                        var body = document.getElementsByTagName("body")[0];
-                        body.appendChild(c);
-
-                        cursorLayer = document.getElementById("CursorLayer");
-
-                        console.log(cursorLayer);
+    function getRandomColor() {
+      var letters = ['red','blue','yellow'];
+      var color = '#';
+      for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+    p.setup = function() {
+        
+        //console.log(data);
+        p.createCanvas(800, 800);  
+        p.stroke(255);     // Set line drawing color to white
+        p.frameRate(30);
+        getdata(checkdata);
+        p.frameRate(30);
+        console.log("setup");
+        //console.log(data);
+    };
 
 
-                        var ctx = c.getContext("2d");
-                        ctx.strokeStyle=ycolor;
-                        ctx.beginPath();
-                        for(var i =0;i<tempObject.x_data.length;i+=2){
-                            ctx.moveTo((tempObject.x_data[i]/10)+20,(tempObject.y_data[i]/10)+y_axis[count]);
-                            ctx.lineTo((tempObject.x_data[i+1]/10)+20, (tempObject.y_data[i+1]/10)+y_axis[count]);
-                        }
-                        ctx.stroke();
-                        p.background('white');
-                        len=0;
-                        count=count+1;
-                        //mycolor = getRandomColor();
-                    }
+    p.draw = function() {
+
+        if(count!=num){
+            if(sketchObject){
+                //console.log(sketchObject.results[0].x_data)
+                if(sketchObject.results[count]){
+                    tempObject=sketchObject.results[count];
                 }
-                document.getElementById("storage_count").innerHTML = " " + count
+                var i =0;
+                p.frameRate(12);
+                var z = p.color('black');
+                p.stroke(z);
+                if(len<tempObject.x_data.length){
+                    p.line((tempObject.x_data[len]/2)+200, (tempObject.y_data[len]/2)+300, (tempObject.x_data[len+1]/2)+200, (tempObject.y_data[len+1]/2)+300);
+                    len+=2;
+                }
+                else{ //send it to another sketch from here
+                    //var myp5 = new p5(t,tempObject, 'c2');
+                    var para = document.createElement("P");
+                    para.style.zIndex = 8;
+                    para.style.position = "absolute";
+                    para.style.fontSize = "medium";
+                    para.style.left="50px";
+                    para.style.top="270px";
+                    var t = document.createTextNode("Generated Sketches");
+                    para.appendChild(t);
+                    document.getElementsByTagName("body")[0].appendChild(para);
+
+
+                    var c = document.createElement("canvas");
+                    c.id = "CursorLayer";
+                    c.width = 150;
+                    c.height = num*100;
+                    c.style.zIndex = 8;
+                    c.style.position = "absolute";
+                    c.style.border = "1px solid";
+                    c.style.left="50px";
+                    c.style.top="300px";
+
+                    var body = document.getElementsByTagName("body")[0];
+                    body.appendChild(c);
+
+                    cursorLayer = document.getElementById("CursorLayer");
+
+                    console.log(cursorLayer);
+
+
+                    var ctx = c.getContext("2d");
+                    ctx.strokeStyle=mycolor;
+                    ctx.beginPath();
+                    for(var i =0;i<tempObject.x_data.length;i+=2){
+                        ctx.moveTo((tempObject.x_data[i]/10)+20,(tempObject.y_data[i]/10)+y_axis[count]);
+                        ctx.lineTo((tempObject.x_data[i+1]/10)+20, (tempObject.y_data[i+1]/10)+y_axis[count]);
+                    }
+                    ctx.stroke();
+
+
+//
+
+
+//
+
+                    p.background('white');
+                    len=0;
+                    count=count+1;
+                    mycolor = getRandomColor();
+                }
             }
-            else{
-                document.getElementById("storage").style.background = "gray";
-                document.getElementById("input_unity").style.background = "";
-                return;
-            }
-
-            //p.line(85, 20, 85, 75);
-            //p.stroke(c);
-            //p.line(85, 75, 30, 75);
-        };
-
-        //console.log("end draw")
-
-        function checkdata(data){
-            //console.log("check data")
-            sketchObject = JSON.parse(data)	//make data global and then let draw parse it
-            console.log("parsed");
-            //console.log(sketchObject.results[0].x_data);
-
+            document.getElementById("storage_count").innerHTML = " " + count
         }
+        else{
 
-        function getdata(callback){
-            //console.log("getdata")
-            var xhttp = new XMLHttpRequest();
-            //var url = "http://52.87.181.57:80/data";
-            var cors_api_url = "https://wm13uhclz2.execute-api.us-east-1.amazonaws.com/Darpa";
+            if(flag === 0){
+                document.getElementById("storage").style.background = "gray";
 
-            xhttp.onreadystatechange = function() {
-            if (xhttp.readyState === 4 && xhttp.status === 200 && callback)
-                callback(this.responseText);
-            };
-            xhttp.open("GET",cors_api_url, true);
-            xhttp.setRequestHeader("Content-Type", "application/json")
-            xhttp.send();
+                document.getElementById("input_unity").style.background = "";
+
+                toggleunity();
+
+                document.getElementById("input_unity").style.background = "gray";
+
+                document.getElementById("successes_failures").style.background = "";
+
+                successVSfailures(num, sketchObject);
+
+                displaydata(sketchObject);
+
+                document.getElementById("successes_failures").style.background = "gray";
+                flag = 1;
+
+            }
+
+            return;
+        }
+        
+        //p.line(85, 20, 85, 75);
+        //p.stroke(c);
+        //p.line(85, 75, 30, 75);
+    };
+
+    function checkdata(data){
+        sketchObject = JSON.parse(data) //make data global and then let draw parse it
+        console.log("parsed");
+        //console.log(sketchObject.results[0].x_data);
+
+    }
+
+    function getdata(callback){
+
+        var xhttp = new XMLHttpRequest();
+        var url = "http://127.0.0.1:5000/data";
+        var cors_api_url = "http://0.0.0.0:8080/";
+
+        xhttp.onreadystatechange = function() {
+        if (xhttp.readyState === 4 && xhttp.status === 200 && callback)
+            callback(this.responseText);
         };
-      //console.log("ola amigo hey hey")
+        xhttp.open("GET", cors_api_url + url, true);
+        xhttp.setRequestHeader("Content-Type", "application/json")
+        xhttp.send();
+    };
+
+}
+
+function generation() {
+  num = parseInt(document.getElementById("num_of_generations").value);
+  document.getElementById("generate_2D").style.background = "gray";
+  document.getElementById("storage").style.background = "";
+
+  var custom_p5 = new p5(sketch, num, 'sketch');
+}
+
+function toggleunity(){
+    var x = document.getElementById("toggleunity");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+}
+
+function displaydata(sketchObject) {
+
+    var y_axis=[]
+    var temp=10;
+    for (var i=0; i<sketchObject.results.length;i++){
+        y_axis.push(temp);
+        temp=temp+100
     }
 
-    function generation() {
-      console.log("coming in")
-      num = parseInt(document.getElementById("num_of_generations").value);
-      document.getElementById("generate_2D").style.background = "gray";
-      document.getElementById("storage").style.background = "";
-      var custom_p5 = new p5(sketch, 'sketch');
+    var para = document.createElement("P");
+    para.style.zIndex = 8;
+    para.style.position = "absolute";
+    para.style.fontSize = "large";
+    para.style.left="850px";
+    para.style.top="870px";
+    var t = document.createTextNode("Training Data");
+    para.appendChild(t);
+    document.getElementsByTagName("body")[0].appendChild(para);
+
+
+    var c = document.createElement("canvas");
+    c.id = "CursorLayer";
+    c.width = 1000;
+    c.height = sketchObject.results.length * 10;
+    c.style.zIndex = 8;
+    c.style.position = "absolute";
+    c.style.border = "1px solid";
+    c.style.left="400px";
+    c.style.top="900px";
+
+    var body = document.getElementsByTagName("body")[0];
+    body.appendChild(c);
+    console.log(cursorLayer);
+
+    cursorLayer = document.getElementById("CursorLayer");
+    var currentrow = 0;
+    var horizontalval = 0;
+
+    for(var index=0; index < sketchObject.results.length; index++){
+        tempObject = sketchObject.results[index];
+
+        var ctx = c.getContext("2d");
+        ctx.beginPath();
+        ctx.strokeStyle = "#000000";
+
+        for(var i=0;i<tempObject.x_data.length;i+=2){
+            if (horizontalval < 1000){
+                ctx.moveTo((tempObject.x_data[i]/10)+horizontalval,(tempObject.y_data[i]/10)+y_axis[currentrow]);
+                ctx.lineTo((tempObject.x_data[i+1]/10)+horizontalval, (tempObject.y_data[i+1]/10)+y_axis[currentrow]);
+            } else {
+                currentrow++;
+                horizontalval = 0;
+                ctx.moveTo((tempObject.x_data[i]/10)+horizontalval,(tempObject.y_data[i]/10)+y_axis[currentrow]);
+                ctx.lineTo((tempObject.x_data[i+1]/10)+horizontalval, (tempObject.y_data[i+1]/10)+y_axis[currentrow]);
+            }
+        }
+        ctx.stroke();
+        horizontalval += 100;
     }
+}
+
+function successVSfailures(num, sketchObject){
+
+    var y_axis=[];
+    var temp=10;
+    for (var i=0; i<sketchObject.results.length;i++){
+        y_axis.push(temp);
+        temp=temp+100
+    }
+
+    for(var count=0; count<num; count++){
+
+        tempObject = sketchObject.results[count];
+        var para = document.createElement("P");
+        para.style.zIndex = 8;
+        para.style.position = "absolute";
+        para.style.fontSize = "medium";
+        para.style.left="1500px";
+        para.style.top="270px";
+        var t = document.createTextNode("Successful vs Unsuccessful");
+        para.appendChild(t);
+        document.getElementsByTagName("body")[0].appendChild(para);
+
+
+        var c = document.createElement("canvas");
+        c.id = "CursorLayer";
+        c.width = 150;
+        c.height = num*100;
+        c.style.zIndex = 8;
+        c.style.position = "absolute";
+        c.style.border = "1px solid";
+        c.style.left="1500px";
+        c.style.top="300px";
+
+        var body = document.getElementsByTagName("body")[0];
+        body.appendChild(c);
+
+        cursorLayer = document.getElementById("CursorLayer");
+
+        console.log(cursorLayer);
+
+
+        var ctx = c.getContext("2d");
+        ctx.strokeStyle="#008000";
+        ctx.beginPath();
+        for(var i =0;i<tempObject.x_data.length;i+=2){
+            ctx.moveTo((tempObject.x_data[i]/10)+20,(tempObject.y_data[i]/10)+y_axis[count]);
+            ctx.lineTo((tempObject.x_data[i+1]/10)+20, (tempObject.y_data[i+1]/10)+y_axis[count]);
+        }
+        ctx.stroke();
+    }
+}
+
+
 
 
 
@@ -31901,31 +32067,42 @@ hr{
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">2D</a></li>
-        <li><a href="#">3D</a></li>
+        <li><a href="#">Download Data</a></li>
       </ul>
     </div>
   </div>
 </nav>
 
+
+
 <div class="flowchart">
-  <button type="button" class="btn btn-primary" id="generate_2D">Generate 2D</button>
+  <div class="dropdown" style="float:left">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="generate_2D">Generate 2D
+    <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+      <li><a href="#">Generate 3D</a></li>
+    </ul>
+  </div>
+
   <span class="glyphicon glyphicon-arrow-right"></span>
   <button type="button" class="btn btn-primary" style="background-color:gray" id="storage">Storage of Generated Designs<strong class="text-danger count" id="storage_count"></strong></button>
   <span class="glyphicon glyphicon-arrow-right"></span>
   <button type="button" class="btn btn-primary" style="background-color:gray" id="input_unity">Input to Unity</button>
   <span class="glyphicon glyphicon-arrow-right"></span>
-  <button type="button" class="btn btn-primary" style="background-color:gray">Run RL Model</button>
-  <span class="glyphicon glyphicon-arrow-right"></span>
-  <button type="button" class="btn btn-primary" style="background-color:gray">Update data set with succesful solutions
+  <!--<button type="button" class="btn btn-primary" style="background-color:gray" id="rl_model">Run RL Model</button>-->
+  <!--<span class="glyphicon glyphicon-arrow-right"></span>-->
+  <button type="button" class="btn btn-primary" style="background-color:gray" id="successes_failures">Update data set with succesful solutions
     <!--<p>-->
       <!--Successes: <strong class="text-success count">0</strong> Failures: <strong class="text-danger count">0</strong>-->
     <!--</p>-->
   </button>
+  <span class="glyphicon glyphicon-arrow-right"></span>
+  <button type="button" class="btn btn-primary" style="background-color:gray" id="retrain">Retrain Model</button>
 
   <div class="input-group col-xs-2 col-xs-offset-1">
       <input type="text" id="num_of_generations" class="form-control"
-             placeholder="Generate (Ex. 10)">
+             placeholder="Generate (e.g. 10)">
       <span class="input-group-btn">
         <button class="btn btn-primary btn-create" type="button" onclick="generation()">Generate</button>
       </span>
@@ -31944,6 +32121,12 @@ hr{
 </div>
 
 <hr>
+
+<div class="col-lg-offset-2">
+  <iframe width="1100" height="600" src="https://appstream2.us-east-1.aws.amazon.com/authenticate?parameters=eyJ0eXBlIjoiRU5EX1VTRVIiLCJleHBpcmVzIjoiMTUxNzcwNDkyNyIsImF3c0FjY291bnRJZCI6IjQyOTUwNjYyMDE4NiIsInVzZXJJZCI6InBwaWQiLCJjYXRhbG9nU291cmNlIjoic3RhY2svR29Hb1VuaXR5IiwiZmxlZXRSZWYiOiJmbGVldC9Hb1VuaXR5IiwiYXBwbGljYXRpb25JZCI6IiIsInVzZXJDb250ZXh0IjoiIiwibWF4VXNlckR1cmF0aW9uSW5TZWNzIjoiNTc2MDAifQ%3D%3D&signature=kpV9MZ7USOmmeNdB8M3P9swlEsLlZO98A4ySZYTJxgE%3D" id="toggleunity" style="display:none">
+  </iframe>
+</div>
+
 
 <div id="sketch"></div>
 

@@ -102,8 +102,9 @@ def add_data():
     data = mongo.db.data
     reqdata = json.loads(request.data)
     vector = reqdata['data']
+    myaxis=vector['axis']
     print vector['id']
-    postall_id = data.insert({'_id':vector['id'],'vector': vector})
+    postall_id = data.insert({'_id':myaxis['id'],'vector': vector})
     print postall_id
     new_postall = data.find_one({'_id': postall_id })
     print new_postall
