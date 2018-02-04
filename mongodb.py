@@ -10,7 +10,7 @@ def hello():
     return "This is database ec2 instance"
 
 #waaa has the results data
-app.config['MONGO_DBNAME'] = 'xaaa'
+app.config['MONGO_DBNAME'] = 'waaa'
 app.config['MONGO_HOST'] = '127.0.0.1'
 app.config['MONGO_PORT'] = 27017
 
