@@ -31793,7 +31793,7 @@ var sketch = function(p,num){
                 document.getElementById("storage").style.background = "gray";
 
                 document.getElementById("input_unity").style.background = "";
-
+                sendSkectToUnityDB(sketchObject);
                 toggleunity();
 
                 document.getElementById("input_unity").style.background = "gray";
@@ -31856,6 +31856,23 @@ function toggleunity(){
     } else {
       x.style.display = "none";
     }
+}
+
+function sendSkectToUnityDB(sketchObject){
+    var http = new XMLHttpRequest();
+    var url = "http://34.239.101.36:80/data";
+    var params = JSON.stringify(sketchObject);
+    http.open("POST", url, true);
+
+    //Send the proper header information along with the request
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    http.onreadystatechange = function() {
+        if(http.readyState == 4 && http.status == 200) {
+            alert(http.responseText);//the JSON string from server will show here
+        }
+    }
+    http.send(params);
 }
 
 function displaydata(sketchObject) {
