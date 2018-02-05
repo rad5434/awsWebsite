@@ -31807,6 +31807,8 @@ var sketch = function(p,num){
 
                 document.getElementById("successes_failures").style.background = "";
 
+                waitUntillUnityReturns(unitySketchObject);
+                
                 successVSfailures(num, sketchObject,unitySketchObject);
 
                 displaydata(sketchObject);
@@ -31865,6 +31867,62 @@ function toggleunity(){
       x.style.display = "none";
     }
 }
+
+function waitUntillUnityReturns(unitySketchObject){
+    var iFrequency = 5000; // expressed in miliseconds
+    var myInterval = 0;
+    var index=0;
+    var maxi = unitySketchObject.length;
+    startLoop();
+    // STARTS and Resets the loop if any
+    function startLoop() {
+
+        if(index==maxi){
+            return;
+        }
+        else{
+            //setInterval(5000);
+            setInterval( doSomething(), iFrequency );  // run   
+        }
+        
+    }
+
+    function doSomething()
+    {
+        getUnitydata(checkUnitydata);
+    }
+
+    function checkUnitydata(data){
+        var myObject = JSON.parse(data) //make data global and then let draw parse it
+        if (myObject.results[index].check!=0){
+            unitySketchObject[index].check=myObject.results[index].check;
+            index+=1;
+        }
+        console.log("Unity parsed");
+        //console.log(sketchObject.results[0]);
+        //console.log(sketchObject);
+
+    }
+
+    function getUnitydata(callback){
+
+        var xhttp = new XMLHttpRequest();
+        var url = "";
+        //var cors_api_url = "http://0.0.0.0:8080/";
+
+        xhttp.onreadystatechange = function() {
+        if (xhttp.readyState === 4 && xhttp.status === 200 && callback)
+            callback(this.responseText);
+        };
+        xhttp.open("GET",  url, true);
+        xhttp.setRequestHeader("Content-Type", "application/json")
+        xhttp.send();
+    }
+
+
+}
+
+
 
 function sendSkectToUnityDB(num,unitySketchObject,sketchObject){
     var count = 0;
