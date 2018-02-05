@@ -31682,6 +31682,7 @@ var sketch = function(p,num){
 
     var sketchObject;
     var tempObject
+    var unitySketchObject=[];
     var count=0;
     var len=0;
     var y_axis=[]
@@ -31723,7 +31724,9 @@ var sketch = function(p,num){
             if(sketchObject){
                 //console.log(sketchObject.results[0].x_data)
                 if(sketchObject.results[count]){
-                    tempObject=sketchObject.results[count];
+                    var randnum = Math.floor(Math.random() * 99) + 0  
+                    tempObject=sketchObject.results[randnum];
+                    unitySketchObject.push(sketchObject.results[randnum]);
                 }
                 var i =0;
                 p.frameRate(12);
@@ -31793,14 +31796,14 @@ var sketch = function(p,num){
                 document.getElementById("storage").style.background = "gray";
 
                 document.getElementById("input_unity").style.background = "";
-                sendSkectToUnityDB(num,sketchObject);
+                sendSkectToUnityDB(num,unitySketchObject);
                 //toggleunity();
 
                 document.getElementById("input_unity").style.background = "gray";
 
                 document.getElementById("successes_failures").style.background = "";
 
-                successVSfailures(num, sketchObject);
+                successVSfailures(num, sketchObject,unitySketchObject);
 
                 displaydata(sketchObject);
 
@@ -31864,7 +31867,7 @@ function sendSkectToUnityDB(num,sketchObject){
     while(count<=num){
     var xmlhttp = new XMLHttpRequest();
     var url ="https://0ryxi8o867.execute-api.us-east-1.amazonaws.com/Post";
-    var param = {"data":sketchObject.results[count]};
+    var param = {"data":unitySketchObject[count]};
     xmlhttp.open("POST", url, true);
     xmlhttp.setRequestHeader("Content-Type", "application/json")
     xmlhttp.send(JSON.stringify(param));
@@ -31940,7 +31943,7 @@ function displaydata(sketchObject) {
     }
 }
 
-function successVSfailures(num, sketchObject){
+function successVSfailures(num, sketchObject,unitySketchObject){
 
     var y_axis=[];
     var temp=10;
@@ -31951,7 +31954,7 @@ function successVSfailures(num, sketchObject){
 
     for(var count=0; count<num; count++){
 
-        tempObject = sketchObject.results[count];
+        tempObject = unitySketchObject[count];
         var para = document.createElement("P");
         para.style.zIndex = 8;
         para.style.position = "absolute";
