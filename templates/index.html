@@ -31687,6 +31687,7 @@ var sketch = function(p,num){
     var len=0;
     var y_axis=[]
     var temp=10;
+    var randnum = Math.floor((Math.random() * 90) + 1);
     var flag=0;
     for (var i=0; i<num;i++){
         y_axis.push(temp);
@@ -31724,9 +31725,10 @@ var sketch = function(p,num){
             if(sketchObject){
                 //console.log(sketchObject.results[0].x_data)
                 if(sketchObject.results[count]){
-                    var randnum = Math.floor(Math.random() * 99) + 0  
-                    tempObject=sketchObject.results[randnum];
-                    unitySketchObject.push(sketchObject.results[randnum]);
+                   // var randnum = Math.floor((Math.random() * 90) + 1);  
+                    console.log("Random: "+randnum);
+		    tempObject=sketchObject.results[randnum];
+                    //unitySketchObject.push(sketchObject.results[randnum]);
                 }
                 var i =0;
                 p.frameRate(12);
@@ -31783,7 +31785,9 @@ var sketch = function(p,num){
 //
 
                     p.background('white');
-                    len=0;
+                    unitySketchObject.push(sketchObject.results[randnum]);
+		    randnum = Math.floor((Math.random() * 90) + 1);
+		    len=0;
                     count=count+1;
                     mycolor = getRandomColor();
                 }
@@ -31796,7 +31800,7 @@ var sketch = function(p,num){
                 document.getElementById("storage").style.background = "gray";
 
                 document.getElementById("input_unity").style.background = "";
-                sendSkectToUnityDB(num,unitySketchObject);
+                sendSkectToUnityDB(num,unitySketchObject,sketchObject);
                 //toggleunity();
 
                 document.getElementById("input_unity").style.background = "gray";
@@ -31862,7 +31866,7 @@ function toggleunity(){
     }
 }
 
-function sendSkectToUnityDB(num,sketchObject){
+function sendSkectToUnityDB(num,unitySketchObject,sketchObject){
     var count = 0;
     while(count<=num){
     var xmlhttp = new XMLHttpRequest();
