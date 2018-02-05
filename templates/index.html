@@ -1,4 +1,4 @@
-CTYPE html>
+<CTYPE html>
 <html lang="en">
 <head>
   <title>DATA Lab</title>
@@ -31682,10 +31682,12 @@ var sketch = function(p,num){
 
     var sketchObject;
     var tempObject
+    var unitySketchObject=[];
     var count=0;
     var len=0;
     var y_axis=[]
     var temp=10;
+    var randnum = Math.floor((Math.random() * 90) + 1);
     var flag=0;
     for (var i=0; i<num;i++){
         y_axis.push(temp);
@@ -31723,7 +31725,10 @@ var sketch = function(p,num){
             if(sketchObject){
                 //console.log(sketchObject.results[0].x_data)
                 if(sketchObject.results[count]){
-                    tempObject=sketchObject.results[count];
+                   // var randnum = Math.floor((Math.random() * 90) + 1);
+                    console.log("Random: "+randnum);
+		    tempObject=sketchObject.results[randnum];
+                    //unitySketchObject.push(sketchObject.results[randnum]);
                 }
                 var i =0;
                 p.frameRate(12);
@@ -31780,7 +31785,9 @@ var sketch = function(p,num){
 //
 
                     p.background('white');
-                    len=0;
+                    unitySketchObject.push(sketchObject.results[randnum]);
+		    randnum = Math.floor((Math.random() * 90) + 1);
+		    len=0;
                     count=count+1;
                     mycolor = getRandomColor();
                 }
@@ -31789,25 +31796,32 @@ var sketch = function(p,num){
         }
         else{
 
-            if(flag === 0){
-                document.getElementById("storage").style.background = "gray";
+          if(flag === 0){
+              document.getElementById("storage").style.background = "gray";
 
-                document.getElementById("input_unity").style.background = "";
+              document.getElementById("input_unity").style.background = "";
 
-                toggleunity();
+              if(anotherflag == 0){
+                 toggleunity();
+                 anotherflag = 1;
+              }
 
-                document.getElementById("input_unity").style.background = "gray";
+              if (show){
+                  toggleunity();
 
-                document.getElementById("successes_failures").style.background = "";
+                  document.getElementById("input_unity").style.background = "gray";
 
-                successVSfailures(num, sketchObject);
+                  document.getElementById("successes_failures").style.background = "";
 
-                displaydata(sketchObject);
+                  getDataFromUnityServer(unitySketchObject);
 
-                document.getElementById("successes_failures").style.background = "gray";
-                flag = 1;
+                  successVSfailures(num, unitySketchObject);
 
-            }
+                  displaydata(sketchObject);
+
+                  flag = 1;
+              }
+          }
 
             return;
         }
@@ -31820,7 +31834,8 @@ var sketch = function(p,num){
     function checkdata(data){
         sketchObject = JSON.parse(data) //make data global and then let draw parse it
         console.log("parsed");
-        //console.log(sketchObject.results[0].x_data);
+        console.log(sketchObject.results[0]);
+	console.log(sketchObject);
 
     }
 
@@ -31849,13 +31864,123 @@ function generation() {
   var custom_p5 = new p5(sketch, num, 'sketch');
 }
 
-function toggleunity(){
-    var x = document.getElementById("toggleunity");
-    if (x.style.display === "none") {
-      x.style.display = "block";
-    } else {
-      x.style.display = "none";
+function getDataFromUnityServer(unitySketchObject){
+
+    mygetdata(mycheckdata);
+
+    function mycheckdata(data){
+        unitySketchObject = JSON.parse(data) //make data global and then let draw parse it
+        console.log("parsed");
+        //console.log(sketchObject.results[0]);
+        console.log(unitySketchObject);
+
     }
+
+    function mygetdata(callback){
+
+        var xhttp = new XMLHttpRequest();
+        var url = " https://6wnta86ktf.execute-api.us-east-1.amazonaws.com/Api";
+        //var cors_api_url = "http://0.0.0.0:8080/";
+
+        xhttp.onreadystatechange = function() {
+        if (xhttp.readyState === 4 && xhttp.status === 200 && callback)
+            callback(this.responseText);
+        };
+        xhttp.open("GET",  url, true);
+        xhttp.setRequestHeader("Content-Type", "application/json")
+        xhttp.send();
+    };
+}
+
+function toggleunity(){
+    $("#toggleunity").toggle("slow");
+    $("#show").toggle("slow");
+}
+
+function showSuccesses(){
+    show = true;
+}
+
+function waitUntillUnityReturns(unitySketchObject){
+    var iFrequency = 5000; // expressed in miliseconds
+    var myInterval = 0;
+    var index=0;
+    var maxi = unitySketchObject.length;
+    startLoop();
+    // STARTS and Resets the loop if any
+    function startLoop() {
+	console.log(maxi);
+	console.log(index);
+        if(index==maxi){
+            return;
+        }
+        else{
+            //setInterval(5000);
+            setInterval( doSomething(), iFrequency );  // run
+            startLoop();
+	}
+
+    }
+
+    function doSomething()
+    {
+        getUnitydata(checkUnitydata);
+    }
+
+    function checkUnitydata(data){
+        var myObject = JSON.parse(data) //make data global and then let draw parse it
+        console.log(myObject);
+	console.log(myObject.results);
+	console.log(myObject.data);
+	//console.log(myobject.data[index]);
+	if (myObject){
+	    if(myObject.data[index].check!=0){
+	     unitySketchObject[index].check=myObject.results[index].check;
+             index+=1;
+	     console.log(index);
+	 }
+        }
+        console.log("Unity parsed");
+        //console.log(sketchObject.results[0]);
+        //console.log(sketchObject);
+
+    }
+
+    function getUnitydata(callback){
+
+        var xhttp = new XMLHttpRequest();
+        var url = "https://54pboeb2qc.execute-api.us-east-1.amazonaws.com/UnityGet";
+        //var cors_api_url = "http://0.0.0.0:8080/";
+
+        xhttp.onreadystatechange = function() {
+        if (xhttp.readyState === 4 && xhttp.status === 200 && callback)
+            callback(this.responseText);
+        };
+        xhttp.open("GET",  url, true);
+        xhttp.setRequestHeader("Content-Type", "application/json")
+        xhttp.send();
+    }
+
+
+}
+
+
+
+function sendSkectToUnityDB(num,unitySketchObject,sketchObject){
+    var count = 0;
+    while(count<=num){
+    var xmlhttp = new XMLHttpRequest();
+    var url ="https://0ryxi8o867.execute-api.us-east-1.amazonaws.com/Post";
+    if(unitySketchObject[count]!=null){
+      unitySketchObject[count].id=count;
+      var param = {"data":unitySketchObject[count]};
+      xmlhttp.open("POST", url, true);
+      xmlhttp.setRequestHeader("Content-Type", "application/json")
+      xmlhttp.send(JSON.stringify(param));
+
+    }
+    count+=1;
+  }
 }
 
 function displaydata(sketchObject) {
@@ -31864,6 +31989,10 @@ function displaydata(sketchObject) {
 
     var y_axis=[]
 	var temp=10;
+    for(var i=0;i<unitySketchObject.results.length;i++){
+        if(unitySketchObject.results[i].check===0 || unitySketchObject.results[i].check===1)
+        sketchObject.results[i]=unitySketchObject.results[i]
+    }
 	for (var i=0; i<sketchObject.results.length;i++){
 		y_axis.push(temp);
 		temp=temp+100
@@ -31873,8 +32002,8 @@ function displaydata(sketchObject) {
     para.style.zIndex = 8;
     para.style.position = "absolute";
     para.style.fontSize = "large";
-    para.style.left="850px";
-    para.style.top="870px";
+    para.style.left="750px";
+    para.style.top="200px";
     var t = document.createTextNode("Training Data");
     para.appendChild(t);
     document.getElementsByTagName("body")[0].appendChild(para);
@@ -31887,8 +32016,8 @@ function displaydata(sketchObject) {
     c.style.zIndex = 8;
     c.style.position = "absolute";
     c.style.border = "1px solid";
-    c.style.left="400px";
-    c.style.top="900px";
+    c.style.left="325px";
+    c.style.top="250px";
 
     var body = document.getElementsByTagName("body")[0];
     body.appendChild(c);
@@ -31926,28 +32055,26 @@ function displaydata(sketchObject) {
     }
 }
 
-function successVSfailures(num, sketchObject){
+function successVSfailures(num, unitySketchObject){
 
     var y_axis=[];
     var temp=10;
-    for (var i=0; i<sketchObject.results.length;i++){
+    for (var i=0; i<unitySketchObject.data.length;i++){
         y_axis.push(temp);
         temp=temp+100
     }
 
     for(var count=0; count<num; count++){
-
-        tempObject = sketchObject.results[count];
+        tempObject = unitySketchObject.data[count];
         var para = document.createElement("P");
         para.style.zIndex = 8;
         para.style.position = "absolute";
         para.style.fontSize = "medium";
-        para.style.left="1500px";
+        para.style.left="1475px";
         para.style.top="270px";
         var t = document.createTextNode("Successful vs Unsuccessful");
         para.appendChild(t);
         document.getElementsByTagName("body")[0].appendChild(para);
-
 
         var c = document.createElement("canvas");
         c.id = "CursorLayer";
@@ -31977,9 +32104,6 @@ function successVSfailures(num, sketchObject){
         ctx.stroke();
     }
 }
-
-
-
 
 
   </script>
@@ -32130,8 +32254,12 @@ hr{
 <hr>
 
 <div class="col-lg-offset-2">
-  <iframe width="1100" height="600" src="https://appstream2.us-east-1.aws.amazon.com/authenticate?parameters=eyJ0eXBlIjoiRU5EX1VTRVIiLCJleHBpcmVzIjoiMTUxNzc3NjE0NCIsImF3c0FjY291bnRJZCI6IjQyOTUwNjYyMDE4NiIsInVzZXJJZCI6InBpcGkiLCJjYXRhbG9nU291cmNlIjoic3RhY2svQm9hdFNrZXRjaCIsImZsZWV0UmVmIjoiZmxlZXQvQm9hdFNrZXRjaCIsImFwcGxpY2F0aW9uSWQiOiIiLCJ1c2VyQ29udGV4dCI6IiIsIm1heFVzZXJEdXJhdGlvbkluU2VjcyI6IjU3NjAwIn0%3D&signature=Fv%2FkddND1%2F8BXRXfFtj0rQlg8nwiihk6LBwYdfJMOoM%3D" id="toggleunity" style="display:none">
+  <iframe width="1100" height="600" src="https://appstream2.us-east-1.aws.amazon.com/authenticate?parameters=eyJ0eXBlIjoiRU5EX1VTRVIiLCJleHBpcmVzIjoiMTUxNzgxMDQ4MCIsImF3c0FjY291bnRJZCI6IjQyOTUwNjYyMDE4NiIsInVzZXJJZCI6ImNoZWNrIiwiY2F0YWxvZ1NvdXJjZSI6InN0YWNrL0JvYXRTa2V0Y2giLCJmbGVldFJlZiI6ImZsZWV0L0JvYXRTa2V0Y2giLCJhcHBsaWNhdGlvbklkIjoiIiwidXNlckNvbnRleHQiOiIiLCJtYXhVc2VyRHVyYXRpb25JblNlY3MiOiI1NzYwMCJ9&signature=PxtpL5hfZX7a%2FtwrfBBP3lqg7Gmjo%2F6qUhJcFMkqcdk%3D" id="toggleunity" style="display:none">
   </iframe>
+</div>
+
+<div>
+  <button type="button" class="btn btn-primary col-lg-offset-5" style="display:none" id="show" onclick="showSuccesses()" >Update Data Set with Successful Solutions</button>
 </div>
 
 
