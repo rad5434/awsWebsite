@@ -31677,7 +31677,7 @@ module.exports = {
   </script>
   <script>
 
-
+var show=false;
 var sketch = function(p,num){
 
     var sketchObject;
@@ -31689,6 +31689,7 @@ var sketch = function(p,num){
     var temp=10;
     var randnum = Math.floor((Math.random() * 90) + 1);
     var flag=0;
+    var anotherflag=0;
     for (var i=0; i<num;i++){
         y_axis.push(temp);
         temp=temp+100
@@ -31816,7 +31817,7 @@ var sketch = function(p,num){
                   document.getElementById("successes_failures").style.background = "";
 
                   getDataFromUnityServer(unitySketchObject);
-
+		  console.log(unitySketchObject);
                   successVSfailures(num, unitySketchObject);
 
                   displaydata(sketchObject);
@@ -31881,7 +31882,7 @@ function getDataFromUnityServer(unitySketchObject){
     function mygetdata(callback){
 
         var xhttp = new XMLHttpRequest();
-        var url = " https://6wnta86ktf.execute-api.us-east-1.amazonaws.com/Api";
+        var url = "https://54pboeb2qc.execute-api.us-east-1.amazonaws.com/UnityGet";
         //var cors_api_url = "http://0.0.0.0:8080/";
 
         xhttp.onreadystatechange = function() {
@@ -32057,16 +32058,16 @@ function displaydata(sketchObject) {
     }
 }
 
-function successVSfailures(num, sketchObject){
+function successVSfailures(num, unitySketchObject){
     var y_axis=[];
 	var temp=10;
-	for (var i=0; i<sketchObject.results.length;i++){
+	for (var i=0; i<unitySketchObject.length;i++){
 		y_axis.push(temp);
 		temp=temp+100
 	}
 
     for(var count=0; count<num; count++){
-        tempObject = sketchObject.results[count];
+        tempObject = unitySketchObject[count];
         var para = document.createElement("P");
         para.style.zIndex = 8;
         para.style.position = "absolute";
@@ -32098,7 +32099,7 @@ function successVSfailures(num, sketchObject){
 
         var ctx = c.getContext("2d");
 
-        if (Math.random(1) > 0.5){ // if it's successful and the check val is 1 draw it green
+        if (tempObject.check==1||tempObject.check==0){ // if it's successful and the check val is 1 draw it green
            ctx.strokeStyle="#008000";
         } else { // if it's unsuccessful and the check val is -1 draw it red
            ctx.strokeStyle="#FF0000";
