@@ -31801,6 +31801,8 @@ var sketch = function(p,num){
 
               document.getElementById("input_unity").style.background = "";
 
+              sendSkectToUnityDB(num, unitySketchObject, sketchObject);
+
               if(anotherflag == 0){
                  toggleunity();
                  anotherflag = 1;
@@ -32055,17 +32057,16 @@ function displaydata(sketchObject) {
     }
 }
 
-function successVSfailures(num, unitySketchObject){
-
+function successVSfailures(num, sketchObject){
     var y_axis=[];
-    var temp=10;
-    for (var i=0; i<unitySketchObject.data.length;i++){
-        y_axis.push(temp);
-        temp=temp+100
-    }
+	var temp=10;
+	for (var i=0; i<sketchObject.results.length;i++){
+		y_axis.push(temp);
+		temp=temp+100
+	}
 
     for(var count=0; count<num; count++){
-        tempObject = unitySketchObject.data[count];
+        tempObject = sketchObject.results[count];
         var para = document.createElement("P");
         para.style.zIndex = 8;
         para.style.position = "absolute";
@@ -32075,6 +32076,7 @@ function successVSfailures(num, unitySketchObject){
         var t = document.createTextNode("Successful vs Unsuccessful");
         para.appendChild(t);
         document.getElementsByTagName("body")[0].appendChild(para);
+
 
         var c = document.createElement("canvas");
         c.id = "CursorLayer";
@@ -32095,7 +32097,13 @@ function successVSfailures(num, unitySketchObject){
 
 
         var ctx = c.getContext("2d");
-        ctx.strokeStyle="#008000";
+
+        if (Math.random(1) > 0.5){ // if it's successful and the check val is 1 draw it green
+           ctx.strokeStyle="#008000";
+        } else { // if it's unsuccessful and the check val is -1 draw it red
+           ctx.strokeStyle="#FF0000";
+        }
+
         ctx.beginPath();
         for(var i =0;i<tempObject.x_data.length;i+=2){
             ctx.moveTo((tempObject.x_data[i]/10)+20,(tempObject.y_data[i]/10)+y_axis[count]);
