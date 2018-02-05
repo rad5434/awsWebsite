@@ -1,4 +1,4 @@
-CTYPE html>
+<CTYPE html>
 <html lang="en">
 <head>
   <title>DATA Lab</title>
@@ -31793,8 +31793,8 @@ var sketch = function(p,num){
                 document.getElementById("storage").style.background = "gray";
 
                 document.getElementById("input_unity").style.background = "";
-                sendSkectToUnityDB(sketchObject);
-                toggleunity();
+                sendSkectToUnityDB(num,sketchObject);
+                //toggleunity();
 
                 document.getElementById("input_unity").style.background = "gray";
 
@@ -31820,7 +31820,8 @@ var sketch = function(p,num){
     function checkdata(data){
         sketchObject = JSON.parse(data) //make data global and then let draw parse it
         console.log("parsed");
-        //console.log(sketchObject.results[0].x_data);
+        console.log(sketchObject.results[0]);
+	console.log(sketchObject);
 
     }
 
@@ -31858,21 +31859,17 @@ function toggleunity(){
     }
 }
 
-function sendSkectToUnityDB(sketchObject){
-    var http = new XMLHttpRequest();
-    var url = "http://34.239.101.36:80/data";
-    var params = JSON.stringify(sketchObject);
-    http.open("POST", url, true);
-
-    //Send the proper header information along with the request
-    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-    http.onreadystatechange = function() {
-        if(http.readyState == 4 && http.status == 200) {
-            alert(http.responseText);//the JSON string from server will show here
-        }
-    }
-    http.send(params);
+function sendSkectToUnityDB(num,sketchObject){
+    var count = 0;
+    while(count<=num){
+    var xmlhttp = new XMLHttpRequest();
+    var url ="https://0ryxi8o867.execute-api.us-east-1.amazonaws.com/Post";
+    var param = {"data":sketchObject.results[count]};
+    xmlhttp.open("POST", url, true);
+    xmlhttp.setRequestHeader("Content-Type", "application/json")
+    xmlhttp.send(JSON.stringify(param));
+    count+=1; 	
+  }
 }
 
 function displaydata(sketchObject) {
