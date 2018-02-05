@@ -31808,10 +31808,12 @@ var sketch = function(p,num){
                 document.getElementById("successes_failures").style.background = "";
 
                 //waitUntillUnityReturns(unitySketchObject);
+
+                getDataFromUnityServer(unitySketchObject);
                 
                 successVSfailures(num, sketchObject,unitySketchObject);
 
-                displaydata(sketchObject);
+                displaydata(sketchObject,unitySketchObject);
 
                 document.getElementById("successes_failures").style.background = "gray";
                 flag = 1;
@@ -31857,6 +31859,34 @@ function generation() {
   document.getElementById("storage").style.background = "";
 
   var custom_p5 = new p5(sketch, num, 'sketch');
+}
+
+function getDataFromUnityServer(unitySketchObject){
+    
+    mygetdata(mycheckdata);    
+
+    function mycheckdata(data){
+        unitySketchObject = JSON.parse(data) //make data global and then let draw parse it
+        console.log("parsed");
+        //console.log(sketchObject.results[0]);
+        console.log(unitySketchObject);
+
+    }
+
+    function mygetdata(callback){
+
+        var xhttp = new XMLHttpRequest();
+        var url = " https://6wnta86ktf.execute-api.us-east-1.amazonaws.com/Api";
+        //var cors_api_url = "http://0.0.0.0:8080/";
+
+        xhttp.onreadystatechange = function() {
+        if (xhttp.readyState === 4 && xhttp.status === 200 && callback)
+            callback(this.responseText);
+        };
+        xhttp.open("GET",  url, true);
+        xhttp.setRequestHeader("Content-Type", "application/json")
+        xhttp.send();
+    };
 }
 
 function toggleunity(){
@@ -31956,6 +31986,10 @@ function displaydata(sketchObject) {
 
     var y_axis=[]
 	var temp=10;
+    for(var i=0;i<unitySketchObject.results.length;i++){
+        if(unitySketchObject.results[i].check===0 || unitySketchObject.results[i].check===1)
+        sketchObject.results[i]=unitySketchObject.results[i]
+    }
 	for (var i=0; i<sketchObject.results.length;i++){
 		y_axis.push(temp);
 		temp=temp+100
