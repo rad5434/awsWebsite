@@ -32013,7 +32013,7 @@ function displaydata(unitySketchObject,sketchObject) {
     var c = document.createElement("canvas");
     c.id = "CursorLayer";
     c.width = 1000;
-    c.height = sketchObject.results.length * 10;
+    c.height = myObject.length * 10;
     c.style.zIndex = 8;
     c.style.position = "absolute";
     c.style.border = "1px solid";
@@ -32031,13 +32031,13 @@ function displaydata(unitySketchObject,sketchObject) {
 	console.log("ola");
 	console.log(unitySketchObject);
 
-
+	var adder=0;
      for(var i=0;i<sketchObject.results.length;i++){
         tempObject = sketchObject.results[i];
     	ctx.beginPath();
     	ctx.strokeStyle = "#000000";
     	if(tempObject.check===1){
-    	
+    		adder+=1;
     		for(var j=0; j<tempObject.x_data.length-1;j++){
                     ctx.moveTo((tempObject.x_data[j]/10)+horizontalval,(tempObject.y_data[j]/10));
                     ctx.lineTo((tempObject.x_data[j+1]/10)+horizontalval, (tempObject.y_data[j+1]/10));
@@ -32048,8 +32048,8 @@ function displaydata(unitySketchObject,sketchObject) {
         }
 
       }
-    for(var index=0; index < sketchObject.results.length-unitySketchObject.length; index++){
-        tempObject = sketchObject.results[index];
+    for(var index=adder; index < myObject.length; index++){
+        tempObject = myObject[index];
         x_data = tempObject[0]
         y_data = tempObject[1]
 
@@ -32282,7 +32282,7 @@ hr{
 <hr>
 
 <div class="col-lg-offset-2">
-  <iframe width="1100" height="600" src="https://appstream2.us-east-1.aws.amazon.com/authenticate?parameters=eyJ0eXBlIjoiRU5EX1VTRVIiLCJleHBpcmVzIjoiMTUxODAyNzU1OSIsImF3c0FjY291bnRJZCI6IjQyOTUwNjYyMDE4NiIsInVzZXJJZCI6ImZyZnIiLCJjYXRhbG9nU291cmNlIjoic3RhY2svU2tldGNoZXMiLCJmbGVldFJlZiI6ImZsZWV0L1VuaXR5R28iLCJhcHBsaWNhdGlvbklkIjoiIiwidXNlckNvbnRleHQiOiIiLCJtYXhVc2VyRHVyYXRpb25JblNlY3MiOiI1NzYwMCJ9&signature=OFqgKoIYQYBz5Ss93OdhILBBA9ZYMbhylM2oy8v2C0M%3D" id="toggleunity" style="display:none">
+  <iframe width="1100" height="600" src="https://appstream2.us-east-1.aws.amazon.com/authenticate?parameters=eyJ0eXBlIjoiRU5EX1VTRVIiLCJleHBpcmVzIjoiMTUxODAzODI3NSIsImF3c0FjY291bnRJZCI6IjQyOTUwNjYyMDE4NiIsInVzZXJJZCI6InBpcCIsImNhdGFsb2dTb3VyY2UiOiJzdGFjay9Ta2V0Y2hlcyIsImZsZWV0UmVmIjoiZmxlZXQvVW5pdHlHbyIsImFwcGxpY2F0aW9uSWQiOiIiLCJ1c2VyQ29udGV4dCI6IiIsIm1heFVzZXJEdXJhdGlvbkluU2VjcyI6IjU3NjAwIn0%3D&signature=1W6c%2BMaB1JSYfgNQoDATtuTTib528LV7NWnvWW7xg78%3D" id="toggleunity" style="display:none">
   </iframe>
 </div>
 
