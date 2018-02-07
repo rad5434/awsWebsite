@@ -31999,7 +31999,7 @@ function displaydata(unitySketchObject,sketchObject) {
 console.log("we are here")     
 console.log(sketchObject);
 
-	var para = document.createElement("P");
+    var para = document.createElement("P");
     para.style.zIndex = 8;
     para.style.position = "absolute";
     para.style.fontSize = "large";
@@ -32010,7 +32010,7 @@ console.log(sketchObject);
     document.getElementsByTagName("body")[0].appendChild(para);
 
 
-	var c = document.createElement("canvas");
+    var c = document.createElement("canvas");
     c.id = "CursorLayer";
     c.width = 1000;
     c.height = sketchObject.results.length * 10;
@@ -32114,12 +32114,12 @@ function successVSfailures(num, sketchObject){
 
 
         var ctx = c.getContext("2d");
-        var rand = Math.floor(Math.random() * 1);
+        var rand = Math.floor(Math.random() * Math.floor(2));
         if (rand==1){ // if it's successful and the check val is 1 draw it green
-            tempObject.check =1
+            sketchObject.results[count].check =1
            ctx.strokeStyle="#008000";
         } else { // if it's unsuccessful and the check val is -1 draw it red
-            tempObject.check=0
+            sketchObject.results[count].check=0
            ctx.strokeStyle="#FF0000";
         }
 
@@ -32281,7 +32281,7 @@ hr{
 <hr>
 
 <div class="col-lg-offset-2">
-  <iframe width="1100" height="600" src="https://appstream2.us-east-1.aws.amazon.com/authenticate?parameters=eyJ0eXBlIjoiRU5EX1VTRVIiLCJleHBpcmVzIjoiMTUxNzk3OTE5OCIsImF3c0FjY291bnRJZCI6IjQyOTUwNjYyMDE4NiIsInVzZXJJZCI6InllcyIsImNhdGFsb2dTb3VyY2UiOiJzdGFjay9Ta2V0Y2hlcyIsImZsZWV0UmVmIjoiZmxlZXQvU3VjY2VzIiwiYXBwbGljYXRpb25JZCI6IiIsInVzZXJDb250ZXh0IjoiIiwibWF4VXNlckR1cmF0aW9uSW5TZWNzIjoiNTc2MDAifQ%3D%3D&signature=d9YgANpCt%2FFCFOtprandopXq2JtoK1%2BZDkmW3yjrgDo%3D" id="toggleunity" style="display:none">
+  <iframe width="1100" height="600" src="https://appstream2.us-east-1.aws.amazon.com/authenticate?parameters=eyJ0eXBlIjoiRU5EX1VTRVIiLCJleHBpcmVzIjoiMTUxODAyNzU1OSIsImF3c0FjY291bnRJZCI6IjQyOTUwNjYyMDE4NiIsInVzZXJJZCI6ImZyZnIiLCJjYXRhbG9nU291cmNlIjoic3RhY2svU2tldGNoZXMiLCJmbGVldFJlZiI6ImZsZWV0L1VuaXR5R28iLCJhcHBsaWNhdGlvbklkIjoiIiwidXNlckNvbnRleHQiOiIiLCJtYXhVc2VyRHVyYXRpb25JblNlY3MiOiI1NzYwMCJ9&signature=OFqgKoIYQYBz5Ss93OdhILBBA9ZYMbhylM2oy8v2C0M%3D" id="toggleunity" style="display:none">
   </iframe>
 </div>
 
