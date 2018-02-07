@@ -31817,8 +31817,8 @@ var sketch = function(p,num){
 
                   document.getElementById("successes_failures").style.background = "";
 
-                  getDataFromUnityServer(unitySketchObject);
-		  console.log(unitySketchObject);
+                  //getDataFromUnityServer(unitySketchObject);
+		          console.log(unitySketchObject);
                   successVSfailures(num, sketchObject);
 		 // for(var i=0;i<unitySketchObject.length;i++){
 		//	sketchObject.results[i]=unitySketchObject[i];
@@ -32114,10 +32114,12 @@ function successVSfailures(num, sketchObject){
 
 
         var ctx = c.getContext("2d");
-
-        if (tempObject.check==1){ // if it's successful and the check val is 1 draw it green
+        var rand = Math.floor(Math.random() * 1);
+        if (rand==1){ // if it's successful and the check val is 1 draw it green
+            tempObject.check =1
            ctx.strokeStyle="#008000";
         } else { // if it's unsuccessful and the check val is -1 draw it red
+            tempObject.check=0
            ctx.strokeStyle="#FF0000";
         }
 
