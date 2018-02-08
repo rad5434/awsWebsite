@@ -31743,6 +31743,7 @@ var sketch = function(p,num){
                 else{ //send it to another sketch from here
                     //var myp5 = new p5(t,tempObject, 'c2');
                     var para = document.createElement("P");
+		    para.id="ganSketch"
                     para.style.zIndex = 8;
                     para.style.position = "absolute";
                     para.style.fontSize = "medium";
@@ -31754,7 +31755,7 @@ var sketch = function(p,num){
 
 
                     var c = document.createElement("canvas");
-                    c.id = "CursorLayer";
+                    c.id = "CursorLayer0";
                     c.width = 150;
                     c.height = num*100;
                     c.style.zIndex = 8;
@@ -31766,7 +31767,7 @@ var sketch = function(p,num){
                     var body = document.getElementsByTagName("body")[0];
                     body.appendChild(c);
 
-                    cursorLayer = document.getElementById("CursorLayer");
+                    cursorLayer = document.getElementById("CursorLayer0");
 
                     console.log(cursorLayer);
 
@@ -31904,8 +31905,24 @@ function toggleunity(){
 }
 
 function toggletrain(){
+   // var oldcanv = document.getElementById('CursorLayer');
+    //document.removeChild(oldcanv)
+   //document.getElementById("storage").style.background = "white";
+
+    //document.getElementById("input_unity").style.background = "pink";
+    // p.background('white');
+	//"SuccUnccSketch"; 
+	//"ganSketch"
+    $("#SuccUnccSketch").toggle("slow");
+$("#ganSketch").toggle("slow");
+   // $("show").toggle("slow");
+    $("#CursorLayer0").toggle("slow");
+    $("#CursorLayer").toggle("slow");  
+    $("#CursorLayer1").toggle("slow");
     $("#toggletrain").toggle("slow");
-    $("#show").toggle("slow");
+	training
+    $("#training").toggle("slow");
+   // $("#show").toggle("slow");
 }
 
 function showSuccesses(){
@@ -32003,8 +32020,8 @@ function displaydata(unitySketchObject,sketchObject) {
 	}
     console.log("we are here")     
     console.log(sketchObject);
-
     var para = document.createElement("P");
+    para.id="training";
     para.style.zIndex = 8;
     para.style.position = "absolute";
     para.style.fontSize = "large";
@@ -32016,7 +32033,7 @@ function displaydata(unitySketchObject,sketchObject) {
 
 
     var c = document.createElement("canvas");
-    c.id = "CursorLayer";
+    c.id = "CursorLayer1";
     c.width = 1000;
     c.height = myObject.length * 10;
     c.style.zIndex = 8;
@@ -32029,7 +32046,7 @@ function displaydata(unitySketchObject,sketchObject) {
     body.appendChild(c);
     console.log(cursorLayer);
 
-    cursorLayer = document.getElementById("CursorLayer");
+    cursorLayer = document.getElementById("CursorLayer1");
     var currentrow = 0;
     var horizontalval = 0;
 	var ctx = c.getContext("2d");
@@ -32091,7 +32108,8 @@ function successVSfailures(num, sketchObject){
     for(var count=0; count<num; count++){
         tempObject = sketchObject.results[count];
         var para = document.createElement("P");
-        para.style.zIndex = 8;
+        para.id="SuccUnccSketch";
+	para.style.zIndex = 8;
         para.style.position = "absolute";
         para.style.fontSize = "medium";
         para.style.left="1475px";
@@ -32285,20 +32303,19 @@ hr{
 </div>
 
 <hr>
-
-<div class="col-lg-offset-2">
-  <iframe width="1100" height="600" src="https://appstream2.us-east-1.aws.amazon.com/authenticate?parameters=eyJ0eXBlIjoiRU5EX1VTRVIiLCJleHBpcmVzIjoiMTUxODA0MTU5NyIsImF3c0FjY291bnRJZCI6IjQyOTUwNjYyMDE4NiIsInVzZXJJZCI6ImRzZCIsImNhdGFsb2dTb3VyY2UiOiJzdGFjay9Ta2V0Y2hlcyIsImZsZWV0UmVmIjoiZmxlZXQvVW5pdHlHbyIsImFwcGxpY2F0aW9uSWQiOiIiLCJ1c2VyQ29udGV4dCI6IiIsIm1heFVzZXJEdXJhdGlvbkluU2VjcyI6IjU3NjAwIn0%3D&signature=D9vi9CtRqHIbpI1Yx1xOtpX72iBYUivQn5RJVlK0GzY%3D" id="toggleunity" style="display:none">
-  </iframe>
-</div>
-
-<div class="col-lg-offset-2">
-  <iframe width="1100" height="600" src="https://neuroplot.herokuapp.com/" id="toggletrain" style="display:none">
-  </iframe>
-</div>
-
 <div>
   <button type="button" class="btn btn-primary col-lg-offset-5" style="display:none" id="show" onclick="showSuccesses()" >Update Data Set with Successful Solutions</button>
 </div>
+<div class="col-lg-offset-2">
+  <iframe width="1100" height="600" src="https://appstream2.us-east-1.aws.amazon.com/authenticate?parameters=eyJ0eXBlIjoiRU5EX1VTRVIiLCJleHBpcmVzIjoiMTUxODEzMzg4MiIsImF3c0FjY291bnRJZCI6IjQyOTUwNjYyMDE4NiIsInVzZXJJZCI6InBpcCIsImNhdGFsb2dTb3VyY2UiOiJzdGFjay9Ta2V0Y2hlcyIsImZsZWV0UmVmIjoiZmxlZXQvVW5pdHlHbyIsImFwcGxpY2F0aW9uSWQiOiIiLCJ1c2VyQ29udGV4dCI6IiIsIm1heFVzZXJEdXJhdGlvbkluU2VjcyI6IjU3NjAwIn0%3D&signature=8M9eP%2FClHw47qUVNQLIktMIKVERqraera2cxUGxBGLk%3D" id="toggleunity" style="display:none">
+  </iframe>
+</div>
+
+<div class="col-lg-offset-1">
+  <iframe width="1400" height="1100" src="" id="toggletrain" style="display:none">
+  </iframe>
+</div>
+
 
 
 <div id="sketch"></div>
