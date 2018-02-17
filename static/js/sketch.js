@@ -1,4 +1,3 @@
-<script>
 var majorcounter=0;
 var show=false;
 var sketch = function(p,num){
@@ -497,5 +496,3 @@ function successVSfailures(num, sketchObject){
     }
 }
 
-
-  </script>
