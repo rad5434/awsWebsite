@@ -1,8 +1,10 @@
 var majorcounter=0;
 var show=false;
+var sketchObject; //the new objeect that is being passed will be equal to sketchObject
+
 var sketch = function(p,num){
 
-    var sketchObject;
+    
     var tempObject
     var unitySketchObject=[];
     var count=0;
@@ -36,7 +38,11 @@ var sketch = function(p,num){
         p.createCanvas(800, 800);
         p.stroke(255);     // Set line drawing color to white
         p.frameRate(30);
-        getdata(checkdata);
+        
+
+        //getdata(checkdata);
+        
+
         p.frameRate(30);
         console.log("setup");
         //console.log(data);
@@ -51,7 +57,7 @@ var sketch = function(p,num){
                 if(sketchObject.results[count]){
                    // var randnum = Math.floor((Math.random() * 90) + 1);
                     console.log("Random: "+randnum);
-		    tempObject=sketchObject.results[count];
+		              tempObject=sketchObject.results[count];
                     //unitySketchObject.push(sketchObject.results[count]);
                 }
                 var i =0;
@@ -164,7 +170,7 @@ var sketch = function(p,num){
         sketchObject = JSON.parse(data) //make data global and then let draw parse it
         console.log("parsed");
         console.log(sketchObject.results[0]);
-	console.log(sketchObject);
+	     console.log(sketchObject);
 
     }
 
@@ -189,6 +195,8 @@ function generation() {
   document.getElementById("generate_2D").style.background = "gray";
   document.getElementById("storage").style.background = "";
   sendNumUnityDB(num);
+  getdata(checkdata);
+  console.log(sketchObject);
   var custom_p5 = new p5(sketch, num, 'sketch');
 }
 
@@ -202,6 +210,28 @@ function sendNumUnityDB(num){
       xmlhttp.setRequestHeader("Content-Type", "application/json")
     xmlhttp.send(JSON.stringify(param));
 }
+
+function checkdata(data){
+        sketchObject = JSON.parse(data) //make data global and then let draw parse it
+        console.log("parsed");
+        console.log(sketchObject.results[0]);
+        console.log(sketchObject);
+
+    }
+
+function getdata(callback){
+    var xhttp = new XMLHttpRequest();
+    var url = " https://6wnta86ktf.execute-api.us-east-1.amazonaws.com/Api";
+    //var cors_api_url = "http://0.0.0.0:8080/";
+
+    xhttp.onreadystatechange = function() {
+    if (xhttp.readyState === 4 && xhttp.status === 200 && callback)
+        callback(this.responseText);
+    };
+    xhttp.open("GET",  url, true);
+    xhttp.setRequestHeader("Content-Type", "application/json")
+    xhttp.send();
+};
 
 function getDataFromUnityServer(unitySketchObject){
 
