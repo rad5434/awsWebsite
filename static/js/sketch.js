@@ -439,10 +439,6 @@ function displaydata(unitySketchObject,sketchObject) {
         x_data = tempObject[0];
         y_data = tempObject[1];
 
-        var ctx = c.getContext("2d");
-        ctx.beginPath();
-        ctx.strokeStyle = "#000000";
-
         if(horizontalval >= 1000) { //append the div horizontally
             horizontalval = 0;
             currentDivRow = document.createElement("div");
