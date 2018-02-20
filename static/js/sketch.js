@@ -426,9 +426,9 @@ var outerDiv = document.createElement("div");
  outerDiv.appendChild(currentDivRow);
 
  for(var index=0; index < sketchObject.results.length; index++){
-     tempObject = sketchObject.results[index];
-     x_data = tempObject[0]
-     y_data = tempObject[1]
+     var tempObject = sketchObject.results[index];
+     var x_data = tempObject[0]
+     var y_data = tempObject[1]
 
      if(horizontalval >= 1000) { //append the div horizontally
          horizontalval = 0;
