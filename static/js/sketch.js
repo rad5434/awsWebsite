@@ -417,23 +417,23 @@ function displaydata(unitySketchObject,sketchObject) {
   currentDivRow.style.height = "100px";
   outerDiv.appendChild(currentDivRow);
 
-	var adder=0;
-     for(var i=0;i<sketchObject.results.length;i++){
-        tempObject = sketchObject.results[i];
-    	ctx.beginPath();
-    	ctx.strokeStyle = "#000000";
-    	if(tempObject.check===1){
-    		adder+=1;
-    		for(var j=0; j<tempObject.x_data.length-1;j+=2){
-                    ctx.moveTo((tempObject.x_data[j]/10)+horizontalval,(tempObject.y_data[j]/10));
-                    ctx.lineTo((tempObject.x_data[j+1]/10)+horizontalval, (tempObject.y_data[j+1]/10));
-           		 }
-            	ctx.stroke();
-            	horizontalval += 100;
-
-        }
-
-      }
+	// var adder=0;
+  //    for(var i=0;i<sketchObject.results.length;i++){
+  //       tempObject = sketchObject.results[i];
+  //   	ctx.beginPath();
+  //   	ctx.strokeStyle = "#000000";
+  //   	if(tempObject.check===1){
+  //   		adder+=1;
+  //   		for(var j=0; j<tempObject.x_data.length-1;j+=2){
+  //                   ctx.moveTo((tempObject.x_data[j]/10)+horizontalval,(tempObject.y_data[j]/10));
+  //                   ctx.lineTo((tempObject.x_data[j+1]/10)+horizontalval, (tempObject.y_data[j+1]/10));
+  //          		 }
+  //           	ctx.stroke();
+  //           	horizontalval += 100;
+  //
+  //       }
+  //
+  //     }
     for(var index=adder; index < myObject.length; index++){
         tempObject = myObject[index];
         x_data = tempObject[0];
