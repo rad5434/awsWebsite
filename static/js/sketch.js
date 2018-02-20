@@ -417,7 +417,7 @@ function displaydata(unitySketchObject,sketchObject) {
   currentDivRow.style.height = "100px";
   outerDiv.appendChild(currentDivRow);
 
-	// var adder=0;
+	var adder=0;
   //    for(var i=0;i<sketchObject.results.length;i++){
   //       tempObject = sketchObject.results[i];
   //   	ctx.beginPath();
