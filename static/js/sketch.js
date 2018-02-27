@@ -7,6 +7,8 @@ var sketchObject;
 var sketch = function(p,num,drawingSketches){
 
     sketchObject=drawingSketches;
+    console.log("My sketch Object");
+    console.log(sketchObject)
     var tempObject
     var unitySketchObject=[];
     var count=0;
@@ -183,10 +185,10 @@ function postDataUnityDB(drawingSketches){
     //Make sure i change the below url to the https url from api gateaway
     var url ="https://1befnmpaoc.execute-api.us-east-1.amazonaws.com/UnityDBPost/";
     //var url = "http://34.227.149.62:80/sketches"
-    var cors_api_url = "http://0.0.0.0:8080/";
+    //var cors_api_url = "http://0.0.0.0:8080/";
 
       var param = drawingSketches;
-      xmlhttp.open("POST", cors_api_url+url, true);
+      xmlhttp.open("POST", url, true);
       xmlhttp.setRequestHeader("Content-Type", "application/json")
     xmlhttp.send(JSON.stringify(param));
 
@@ -205,7 +207,8 @@ function sendNumUnityDB(num){
 }
 
 function checkdata(data){
-        drawingSketches = JSON.parse(data) //make data global and then let draw parse it
+       console.log("came Here");
+	 drawingSketches = JSON.parse(data) //make data global and then let draw parse it
         console.log("parsed");
         console.log(drawingSketches.results[0]);
         console.log(drawingSketches);
@@ -219,12 +222,12 @@ function getdata(callback){
     //var url = "http://54.82.94.146:80/data"
     var url = " https://6wnta86ktf.execute-api.us-east-1.amazonaws.com/Api";
     //var cors_api_url = "http://0.0.0.0:8080/";
-
+	console.log("here")
     xhttp.onreadystatechange = function() {
     if (xhttp.readyState === 4 && xhttp.status === 200 && callback)
         callback(this.responseText);
     };
-    xhttp.open("GET",  cors_api_url+url, true);
+    xhttp.open("GET",  url, true);
     xhttp.setRequestHeader("Content-Type", "application/json")
     xhttp.send();
 };
