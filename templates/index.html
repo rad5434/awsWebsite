@@ -49,6 +49,14 @@ footer {
     }
 }
 
+.modal-backdrop {
+    background-color: #ccc;
+}
+
+.modal-backdrop.in {
+    opacity: 0.2;
+}
+
 hr{
   width:850px;
   border-width: 5px;
@@ -95,7 +103,7 @@ a.visible{
   </style>
 </head>
 <body>
-
+<div id="myContainer">
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -181,6 +189,25 @@ a.visible{
 
 
 <div id="sketch"></div>
+</div>
+
+<center>
+  <div class="modal fade" id="myModal" role="dialog">
+<div class="modal-dialog modal-md">
+<video id="myVideo" class="center" width = "900" height="900" src="https://s3.amazonaws.com/darpawebsite/DarpaUnityWebsite.mov" autoplay></video>
+</div>
+</div>
+</center>
 
 </body>
 </html>
+<script>
+    $(".myContainer").hide();
+    $("#myModal").modal()
+    //document.getElementById("myVideo").style.left = "400px";
+    document.getElementById('myVideo').addEventListener('ended', closeModal, false);
+    function closeModal() {
+        $('#myModal').modal('hide');
+        $(".myContainer").show();
+    }
+  </script>
