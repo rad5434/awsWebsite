@@ -57,7 +57,9 @@ var sketch = function(p,num,drawingSketches){
 
         if(count!=num){
             if(sketchObject){
+		console.log("Below is sketchObject");
                 //console.log(sketchObject.results[0].x_data)
+		console.log(sketchObject);
                 if(sketchObject.results[count]){
                    // var randnum = Math.floor((Math.random() * 90) + 1);
                     console.log("Random: "+randnum);
@@ -173,7 +175,7 @@ function generation() {
   document.getElementById("storage").style.background = "";
   sendNumUnityDB(num);
   getdata(checkdata);
-  postDataUnityDB(sketchObject);
+  //postDataUnityDB(sketchObject);
   //console.log(sketchObject);
 
   //var custom_p5 = new p5(sketch, num, 'sketch');
@@ -185,7 +187,7 @@ function postDataUnityDB(drawingSketches){
     console.log("Posting Sketches To UnityDB!!!!")
     console.log(drawingSketches);
     //Make sure i change the below url to the https url from api gateaway
-    var url ="https://1befnmpaoc.execute-api.us-east-1.amazonaws.com/UnityDBPost/";
+    var url ="https://cpl3qebb43.execute-api.us-east-1.amazonaws.com/postDataUnityDB/";
     //var url = "http://34.227.149.62:80/sketches"
     //var cors_api_url = "http://0.0.0.0:8080/";
 
@@ -209,12 +211,14 @@ function sendNumUnityDB(num){
 }
 
 function checkdata(data){
-       console.log("came Here");
+       console.log("checkdata");
 	 drawingSketches = JSON.parse(data) //make data global and then let draw parse it
-        console.log("parsed");
-        console.log(drawingSketches.results[0]);
-        console.log(drawingSketches);
+        console.log("recieved data from GAN db");
+        //console.log(drawingSketches.results[0]);
+        //console.log("yo albert")
+	console.log(drawingSketches);
         postDataUnityDB(drawingSketches);
+	console.log("posted data to Unity DB")
         var custom_p5 = new p5(sketch, num,drawingSketches ,'sketch');
 
     }
@@ -222,7 +226,7 @@ function checkdata(data){
 function getdata(callback){
     var xhttp = new XMLHttpRequest();
     //var url = "http://54.82.94.146:80/data"
-    var url = " https://6wnta86ktf.execute-api.us-east-1.amazonaws.com/Api";
+    var url = "https://6wnta86ktf.execute-api.us-east-1.amazonaws.com/Api";
     //var cors_api_url = "http://0.0.0.0:8080/";
 	console.log("here")
     xhttp.onreadystatechange = function() {
