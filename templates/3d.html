@@ -1,10 +1,190 @@
-<!DOCTYPE html>
-<html>
+<CTYPE html>
+<html lang="en">
+<head>
+  <title>DATA Lab</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.34.min.js"></script>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script>
+  
+
+  <script type=text/javascript src="{{
+  url_for('static', filename='js/p5.js') }}"></script>
+  <script type=text/javascript src="{{
+  url_for('static', filename='js/3dSketch.js') }}"></script>
+
+<style type="text/css">
+body{
+  width: 100%;
+  height: 100%;
+  min-width: 1000px;
+  min-height: 1000px;
+}
+    /* Remove the navbar's default margin-bottom and rounded borders */
+.navbar {
+  margin-bottom: 0;
+  border-radius: 0;
+}
+
+/* Set black background color, white text and some padding */
+footer {
+  background-color: #555;
+  color: white;
+  padding: 15px;
+}
+
+.flowchart {
+  padding: 20px;
+}
+
+.input-group {
+    display: inline-table;
+    vertical-align: middle;
+
+    .input-group-addon,
+    .input-group-btn,
+    .form-control {
+        width: auto !important;
+    }
+}
+
+.modal-backdrop {
+    background-color: #ccc;
+}
+
+.modal-backdrop.in {
+    opacity: 0.2;
+}
+
+hr{
+  width:850px;
+  border-width: 5px;
+  margin-left:50px;
+  border-color: #000000;
+  margin-top:0px;
+}
+
+.vl{
+  border-left: 5px solid black;
+  height: 30px;
+  margin-left: 50px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.offsetline{
+  padding-left:860px;
+
+}
+
+.arrow {
+  width: 0;
+  height: 0;
+  margin-left: 43px;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+
+  border-bottom: 10px solid black;
+}
+
+.mycenter{
+  position:fixed;
+  left:-70%; 
+}
+
+.row{
+  margin-bottom: 0px;
+}
+
+.count{
+  display: inline;
+}
+
+a.visible{
+	visibility:hidden;
+}
+
+  </style>
+</head>
 <body>
+<div id="myContainer">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">DATA LAB</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">Download Data</a></li>
+        <li><a href="https://s3.amazonaws.com/darpawebsite/DarpaUnityWebsite.mp4">Website Tutorial</a></li>
+       </ul>
+    </div>
+  </div>
+</nav>
 
-<h1>My First Heading</h1>
 
-<p>My first paragraph.</p>
+<div class="flowchart" id="myflowchart">
+  <div class="dropdown" style="float:left">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="generate_2D">Generate 3D
+    <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+      <li><a href="http://ec2-54-158-105-68.compute-1.amazonaws.com">Generate 2D</a></li>
+    </ul>
+  </div>
+
+  <span class="glyphicon glyphicon-arrow-right"></span>
+  <button type="button" class="btn btn-primary" style="background-color:gray" id="storage">Storage of Generated Designs<strong class="text-danger count" id="storage_count"></strong></button>
+  <span class="glyphicon glyphicon-arrow-right"></span>
+  <button type="button" class="btn btn-primary" style="background-color:gray" id="input_unity">Input to Unity</button>
+  <span class="glyphicon glyphicon-arrow-right"></span>
+  <!--<button type="button" class="btn btn-primary" style="background-color:gray" id="rl_model">Run RL Model</button>-->
+  <!--<span class="glyphicon glyphicon-arrow-right"></span>-->
+  <button type="button" class="btn btn-primary" style="background-color:gray" id="successes_failures">Update data set with succesful solutions
+    <!--<p>-->
+      <!--Successes: <strong class="text-success count">0</strong> Failures: <strong class="text-danger count">0</strong>-->
+    <!--</p>-->
+  </button>
+  <span class="glyphicon glyphicon-arrow-right"></span>
+  <button type="button" class="btn btn-primary" onclick="toggletrain()" style="background-color:gray" id="retrain">Retrain Model</button>
+
+  <div class="input-group col-xs-2 col-xs-offset-1">
+      <input type="text" id="num_of_generations" class="form-control"
+             placeholder="Generate (e.g. 10)">
+      <span class="input-group-btn">
+        <button class="btn btn-primary btn-create" type="button" onclick="generation()">Generate</button>
+      </span>
+  </div>
+</div>
+
+<div class="arrow"></div>
+
+<div class="row">
+  <div class="col-xs-1">
+    <div class="vl"></div>
+  </div>
+  <div class="offsetline">
+    <div class="vl"></div>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <button type="button" class="btn btn-primary col-lg-offset-5" style="display:none" id="show" onclick="showSuccesses()" >Update Data Set with Successful Solutions</button>
+</div>
+
+<div id="sketch"></div>
+</div>
 
 </body>
 </html>
