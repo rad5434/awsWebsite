@@ -12,7 +12,7 @@ def index():
     return render_template('index.html')
 
 @app.route('/Generate3D')
-def index():
+def myindex():
     return render_template('3d.html')
 
 if __name__ == '__main__':
