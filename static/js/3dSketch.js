@@ -63,13 +63,13 @@ var sketch = function(p,num,drawingSketches){
                 if(len<sides[0].length){    //need to do 3 lines per iteration (trianlge). currently we only have 1
 
                     //p.line((vertices[0].x_data[len]/2)+200, (tempObject.y_data[len]/2)+300, (tempObject.x_data[len+1]/2)+200, (tempObject.y_data[len+1]/2)+300);
-                    p.line(vertices[0][sides[0][len]]*10+200,vertices[1][sides[0][len]]*10+200,vertices[2][sides[0][len]]*10+200,vertices[0][sides[1][len]]*10+200,vertices[1][sides[1][len]]*10+200,vertices[2][sides[1][len]]*10+200)
-                    p.line(vertices[0][sides[1][len]]*10+200,vertices[1][sides[1][len]]*10+200,vertices[2][sides[1][len]]*10+200,vertices[0][sides[2][len]]*10+200,vertices[1][sides[2][len]]*10+200,vertices[2][sides[2][len]]*10+200)
-                    p.line(vertices[0][sides[2][len]]*10+200,vertices[1][sides[2][len]]*10+200,vertices[2][sides[2][len]]*10+200,vertices[0][sides[0][len]]*10+200,vertices[1][sides[0][len]]*10+200,vertices[2][sides[0][len]]*10+200)
+                    p.line(vertices[0][sides[0][len]]*20+200,vertices[1][sides[0][len]]*20+200,vertices[2][sides[0][len]]*20+200,vertices[0][sides[1][len]]*20+200,vertices[1][sides[1][len]]*20+200,vertices[2][sides[1][len]]*20+200)
+                    p.line(vertices[0][sides[1][len]]*20+200,vertices[1][sides[1][len]]*20+200,vertices[2][sides[1][len]]*20+200,vertices[0][sides[2][len]]*20+200,vertices[1][sides[2][len]]*20+200,vertices[2][sides[2][len]]*20+200)
+                    p.line(vertices[0][sides[2][len]]*20+200,vertices[1][sides[2][len]]*20+200,vertices[2][sides[2][len]]*20+200,vertices[0][sides[0][len]]*20+200,vertices[1][sides[0][len]]*20+200,vertices[2][sides[0][len]]*20+200)
                     len+=1;
-                    console.log(vertices[0][sides[0][len]]*10+200,vertices[1][sides[0][len]]*10+200,vertices[2][sides[0][len]]*10+200,vertices[0][sides[1][len]]*10+200,vertices[1][sides[1][len]]*10+200,vertices[2][sides[1][len]]*10+200)
-                    console.log(vertices[0][sides[1][len]]*10+200,vertices[1][sides[1][len]]*10+200,vertices[2][sides[1][len]]*10+200,vertices[0][sides[2][len]]*10+200,vertices[1][sides[2][len]]*10+200,vertices[2][sides[2][len]]*10+200)
-                    console.log(vertices[0][sides[2][len]]*10+200,vertices[1][sides[2][len]]*10+200,vertices[2][sides[2][len]]*10+200,vertices[0][sides[0][len]]*10+200,vertices[1][sides[0][len]]*10+200,vertices[2][sides[0][len]]*10+200)
+                    console.log(vertices[0][sides[0][len]]*20+200,vertices[1][sides[0][len]]*20+200,vertices[2][sides[0][len]]*20+200,vertices[0][sides[1][len]]*20+200,vertices[1][sides[1][len]]*20+200,vertices[2][sides[1][len]]*20+200)
+                    console.log(vertices[0][sides[1][len]]*20+200,vertices[1][sides[1][len]]*20+200,vertices[2][sides[1][len]]*20+200,vertices[0][sides[2][len]]*20+200,vertices[1][sides[2][len]]*20+200,vertices[2][sides[2][len]]*20+200)
+                    console.log(vertices[0][sides[2][len]]*20+200,vertices[1][sides[2][len]]*20+200,vertices[2][sides[2][len]]*20+200,vertices[0][sides[0][len]]*20+200,vertices[1][sides[0][len]]*20+200,vertices[2][sides[0][len]]*20+200)
                     
                 }
                 else{
