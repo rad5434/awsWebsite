@@ -59,9 +59,12 @@ var sketch = function(p,num,drawingSketches){
             if(drawingSketches){
                 console.log("Below is drawingSketches");
                 console.log(drawingSketches);
-                if(sketchObject.results[count]){
-                    tempObject=sketchObject.results[count];
+                if(drawingSketches.results[count]){
+                    tempObject=drawingSketches.results[count];
                     console.log(tempObject);
+		    console.log(tempObject[0].data);//This gives me the data block
+		    console.log(tempObject[0].data.sides[0])//This gives me the first array of sides
+		    console.log(tempObject[0].data.vertices[0])// And this gives the first array of vertices
                     count=count+1; //remove this later
                 }
                 /*var i =0;
