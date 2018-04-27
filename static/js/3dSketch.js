@@ -33,14 +33,13 @@ var sketch = function(p,num,drawingSketches){
     console.log("My sketch Object");
     console.log(drawingSketches)
     var tempObject
-    var unitySketchObject=[];
     var count=0;
     var len=0;
     var y_axis=[]
     var temp=10;
-    var randnum = Math.floor((Math.random() * 90) + 1);
-    var flag=0;
-    var anotherflag=0;
+    var sides
+    var vertices
+
     for (var i=0; i<num;i++){
         y_axis.push(temp);
         temp=temp+100
@@ -55,30 +54,35 @@ var sketch = function(p,num,drawingSketches){
 
     p.draw = function() {
 
-        if(count!=num){
+        if(count!=num){ //count is the nth boat that is currently being drawn
             if(drawingSketches){
                 console.log("Below is drawingSketches");
                 console.log(drawingSketches);
                 if(drawingSketches.results[count]){
                     tempObject=drawingSketches.results[count];
+                    sides = tempObject[0].data.sides
+                    vertices = tempObject[0].data.vertices
+
                     console.log(tempObject);
-		    console.log(tempObject[0].data);//This gives me the data block
-		    console.log(tempObject[0].data.sides[0])//This gives me the first array of sides
-		    console.log(tempObject[0].data.vertices[0])// And this gives the first array of vertices
-                    count=count+1; //remove this later
+        		    console.log(tempObject[0].data);//This gives me the data block
+        		    console.log(tempObject[0].data.sides[0])//This gives me the first array of sides
+        		    console.log(tempObject[0].data.vertices[0])// And this gives the first array of vertices
                 }
-                /*var i =0;
                 p.frameRate(12);
                 var z = p.color('black');
                 p.stroke(z);
-                if(len<tempObject.x_data.length){
-                    p.line((tempObject.x_data[len]/2)+200, (tempObject.y_data[len]/2)+300, (tempObject.x_data[len+1]/2)+200, (tempObject.y_data[len+1]/2)+300);
-                    len+=2;
+                if(len<sides[0].length){    //need to do 3 lines per iteration (trianlge). currently we only have 1
+                    
+                    //p.line((vertices[0].x_data[len]/2)+200, (tempObject.y_data[len]/2)+300, (tempObject.x_data[len+1]/2)+200, (tempObject.y_data[len+1]/2)+300);
+                    p.line(vertices[0][sides[0][len]],vertices[1][sides[0][len]],vertices[2][sides[0][len]],vertices[0][sides[1][len]],vertices[1][sides[1][len]],vertices[2][sides[1][len]])
+                    p.line(vertices[0][sides[1][len]],vertices[1][sides[1][len]],vertices[2][sides[1][len]],vertices[0][sides[2][len]],vertices[1][sides[2][len]],vertices[2][sides[2][len]])
+                    p.line(vertices[0][sides[2][len]],vertices[1][sides[2][len]],vertices[2][sides[2][len]],vertices[0][sides[0][len]],vertices[1][sides[0][len]],vertices[2][sides[0][len]])
+                    len+=1;
                 }
                 else{
                   len=0;
                   count=count+1;
-                }*/
+                }
             }
         }
     };
