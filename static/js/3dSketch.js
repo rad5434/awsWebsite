@@ -57,7 +57,7 @@ var sketch = function(p,num,drawingSketches){
                     sides = tempObject[0].data.sides
                     vertices = tempObject[0].data.vertices
                 }
-                p.frameRate(13);
+                p.frameRate(50);
                 var z = p.color('black');
                 p.stroke(z);
                 if(len<sides[0].length){    //need to do 3 lines per iteration (trianlge). currently we only have 1
