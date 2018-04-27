@@ -46,6 +46,9 @@ var sketch = function(p,num,drawingSketches){
     }
     p.setup = function() {
         p.createCanvas(800, 800);
+        var x = (windowWidth - width) / 2;
+        var y = (windowHeight - height) / 2;
+        p.position(x, y);
         p.stroke(255);     // Set line drawing color to white
         p.frameRate(30);
         //console.log("Setup is finished");
