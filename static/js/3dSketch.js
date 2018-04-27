@@ -6,7 +6,7 @@ function generation() {
   
 
   get3Ddata(num);	//this should get us the num in 3d
-  getdata(checkdata);
+  //getdata(checkdata);
 }
 
 function checkdata(data){
@@ -20,7 +20,7 @@ function checkdata(data){
 function get3Ddata(numberOfSketchesNeeded){
 	console.log("In get3Ddata from generation");
 	var xhttp = new XMLHttpRequest();
-    var url = "https://ao1xqc28i7.execute-api.us-east-1.amazonaws.com/prod/"+num;
+    var url = "https://cbeeix86ff.execute-api.us-east-1.amazonaws.com/Final/"+num;
 	console.log("Ready to recieve GanDB 3D data")
     xhttp.onreadystatechange = function() {
     if (xhttp.readyState === 4 && xhttp.status === 200)
@@ -29,9 +29,4 @@ function get3Ddata(numberOfSketchesNeeded){
     xhttp.open("GET",  url, true);
     xhttp.setRequestHeader("Content-Type", "application/json")
     xhttp.send();
-
-
-
-
 };
-}
