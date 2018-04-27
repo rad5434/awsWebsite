@@ -67,6 +67,10 @@ var sketch = function(p,num,drawingSketches){
                     p.line(vertices[0][sides[1][len]]*10+10000,vertices[1][sides[1][len]]*10+10000,vertices[2][sides[1][len]]*10+10000,vertices[0][sides[2][len]]*10+10000,vertices[1][sides[2][len]]*10+10000,vertices[2][sides[2][len]]*10+10000)
                     p.line(vertices[0][sides[2][len]]*10+10000,vertices[1][sides[2][len]]*10+10000,vertices[2][sides[2][len]]*10+10000,vertices[0][sides[0][len]]*10+10000,vertices[1][sides[0][len]]*10+10000,vertices[2][sides[0][len]]*10+10000)
                     len+=1;
+                    console.log(vertices[0][sides[0][len]]*10+10000,vertices[1][sides[0][len]]*10+10000,vertices[2][sides[0][len]]*10+10000,vertices[0][sides[1][len]]*10+10000,vertices[1][sides[1][len]]*10+10000,vertices[2][sides[1][len]]*10+10000)
+                    console.log(vertices[0][sides[1][len]]*10+10000,vertices[1][sides[1][len]]*10+10000,vertices[2][sides[1][len]]*10+10000,vertices[0][sides[2][len]]*10+10000,vertices[1][sides[2][len]]*10+10000,vertices[2][sides[2][len]]*10+10000)
+                    console.log(vertices[0][sides[2][len]]*10+10000,vertices[1][sides[2][len]]*10+10000,vertices[2][sides[2][len]]*10+10000,vertices[0][sides[0][len]]*10+10000,vertices[1][sides[0][len]]*10+10000,vertices[2][sides[0][len]]*10+10000)
+                    
                 }
                 else{
                   len=0;
