@@ -35,15 +35,9 @@ var sketch = function(p,num,drawingSketches){
     var tempObject
     var count=0;
     var len=0;
-    var y_axis=[]
     var temp=10;
     var sides
     var vertices
-
-    for (var i=0; i<num;i++){
-        y_axis.push(temp);
-        temp=temp+100
-    }
     p.setup = function() {
         p.createCanvas(800, 800);
         var x = (windowWidth - width) / 2;
@@ -72,9 +66,9 @@ var sketch = function(p,num,drawingSketches){
                 if(len<sides[0].length){    //need to do 3 lines per iteration (trianlge). currently we only have 1
 
                     //p.line((vertices[0].x_data[len]/2)+200, (tempObject.y_data[len]/2)+300, (tempObject.x_data[len+1]/2)+200, (tempObject.y_data[len+1]/2)+300);
-                    p.line(vertices[0][sides[0][len]]+5000,vertices[1][sides[0][len]]+5000,vertices[2][sides[0][len]]+5000,vertices[0][sides[1][len]]+5000,vertices[1][sides[1][len]]+5000,vertices[2][sides[1][len]]+5000)
-                    p.line(vertices[0][sides[1][len]]+5000,vertices[1][sides[1][len]]+5000,vertices[2][sides[1][len]]+5000,vertices[0][sides[2][len]]+5000,vertices[1][sides[2][len]]+5000,vertices[2][sides[2][len]]+5000)
-                    p.line(vertices[0][sides[2][len]]+5000,vertices[1][sides[2][len]]+5000,vertices[2][sides[2][len]]+5000,vertices[0][sides[0][len]]+5000,vertices[1][sides[0][len]]+5000,vertices[2][sides[0][len]]+5000)
+                    p.line(vertices[0][sides[0][len]],vertices[1][sides[0][len]]+5000,vertices[2][sides[0][len]],vertices[0][sides[1][len]],vertices[1][sides[1][len]]+5000,vertices[2][sides[1][len]])
+                    p.line(vertices[0][sides[1][len]],vertices[1][sides[1][len]]+5000,vertices[2][sides[1][len]],vertices[0][sides[2][len]],vertices[1][sides[2][len]]+5000,vertices[2][sides[2][len]])
+                    p.line(vertices[0][sides[2][len]],vertices[1][sides[2][len]]+5000,vertices[2][sides[2][len]],vertices[0][sides[0][len]],vertices[1][sides[0][len]]+5000,vertices[2][sides[0][len]])
                     len+=1;
                 }
                 else{
