@@ -39,12 +39,11 @@ var sketch = function(p,num,drawingSketches){
     var sides
     var vertices
     p.setup = function() {
-        p.createCanvas(3000,3000);
-	p.stroke(255);     // Set line drawing color to white
+        p.createCanvas(1200,1200);
+	    p.background(200)
+        p.stroke(255);     // Set line drawing color to white
         p.frameRate(30);
         //console.log("Setup is finished");
-	var x = (window.innerWidth) / 2;
-  	var y = (window.innerHeight) / 2;
     };
 
 
