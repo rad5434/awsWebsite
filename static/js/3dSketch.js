@@ -1,7 +1,7 @@
 function generation() {
   num = parseInt(document.getElementById("num_of_generations").value); //number the user wants
-  document.getElementById("generate_2D").style.background = "gray";
-  document.getElementById("storage").style.background = "";
+  //document.getElementById("generate_2D").style.background = "gray";
+  //document.getElementById("storage").style.background = "";
   get3Ddata(num);	//this should get us the num in 3d
 }
 
@@ -39,10 +39,7 @@ var sketch = function(p,num,drawingSketches){
     var sides
     var vertices
     p.setup = function() {
-        p.createCanvas(800, 800);
-        var x = (windowWidth - width) / 2;
-        var y = (windowHeight - height) / 2;
-        p.position(x, y);
+        p.createCanvas(800, 800,WEBGL);
         p.stroke(255);     // Set line drawing color to white
         p.frameRate(30);
         //console.log("Setup is finished");
