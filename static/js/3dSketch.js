@@ -67,14 +67,12 @@ var sketch = function(p,num,drawingSketches){
                     p.line(vertices[0][sides[1][len]]*100+200,vertices[1][sides[1][len]]*100+200,vertices[2][sides[1][len]]*100+200,vertices[0][sides[2][len]]*100+200,vertices[1][sides[2][len]]*100+200,vertices[2][sides[2][len]]*100+200)
                     p.line(vertices[0][sides[2][len]]*100+200,vertices[1][sides[2][len]]*100+200,vertices[2][sides[2][len]]*100+200,vertices[0][sides[0][len]]*100+200,vertices[1][sides[0][len]]*100+200,vertices[2][sides[0][len]]*100+200)
                     len+=1;
-                    console.log(vertices[0][sides[0][len]]*100+200,vertices[1][sides[0][len]]*100+200,vertices[2][sides[0][len]]*100+200,vertices[0][sides[1][len]]*100+200,vertices[1][sides[1][len]]*100+200,vertices[2][sides[1][len]]*100+200)
-                    console.log(vertices[0][sides[1][len]]*100+200,vertices[1][sides[1][len]]*100+200,vertices[2][sides[1][len]]*100+200,vertices[0][sides[2][len]]*100+200,vertices[1][sides[2][len]]*100+200,vertices[2][sides[2][len]]*100+200)
-                    console.log(vertices[0][sides[2][len]]*100+200,vertices[1][sides[2][len]]*100+200,vertices[2][sides[2][len]]*100+200,vertices[0][sides[0][len]]*100+200,vertices[1][sides[0][len]]*100+200,vertices[2][sides[0][len]]*100+200)
-                
                 }
                 else{
+                  console.log("ready for another one")
                   len=0;
                   count=count+1;
+                  p.background('white');
                 }
             }
         }
