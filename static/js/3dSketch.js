@@ -62,10 +62,10 @@ var sketch = function(p,num,drawingSketches){
                 p.stroke(z);
                 if(len<sides[0].length){    //need to do 3 lines per iteration (trianlge). currently we only have 1
 
-                    //p.line(((vertices[0].x_data[len]/2)*35)+300, (tempObject.y_data[len]/2)+300, (t(empObject.x_data[len+1]/2)*35)+300, (tempObject.y_data[len+1]/2)+300);
-                    p.line((vertices[0][sides[0][len]]*35)+300,(vertices[1][sides[0][len]]*35)+300,(vertices[2][sides[0][len]]*35)+300,(vertices[0][sides[1][len]]*35)+300,(vertices[1][sides[1][len]]*35)+300,(vertices[2][sides[1][len]]*35)+300)
-                    p.line((vertices[0][sides[1][len]]*35)+300,(vertices[1][sides[1][len]]*35)+300,(vertices[2][sides[1][len]]*35)+300,(vertices[0][sides[2][len]]*35)+300,(vertices[1][sides[2][len]]*35)+300,(vertices[2][sides[2][len]]*35)+300)
-                    p.line((vertices[0][sides[2][len]]*35)+300,(vertices[1][sides[2][len]]*35)+300,(vertices[2][sides[2][len]]*35)+300,(vertices[0][sides[0][len]]*35)+300,(vertices[1][sides[0][len]]*35)+300,(vertices[2][sides[0][len]]*35)+300)
+                    //p.line(((vertices[0].x_data[len]/2)*45)+300, (tempObject.y_data[len]/2)+300, (t(empObject.x_data[len+1]/2)*45)+300, (tempObject.y_data[len+1]/2)+300);
+                    p.line((vertices[0][sides[0][len]]*45)+300,(vertices[1][sides[0][len]]*45)+300,(vertices[2][sides[0][len]]*45)+300,(vertices[0][sides[1][len]]*45)+300,(vertices[1][sides[1][len]]*45)+300,(vertices[2][sides[1][len]]*45)+300)
+                    p.line((vertices[0][sides[1][len]]*45)+300,(vertices[1][sides[1][len]]*45)+300,(vertices[2][sides[1][len]]*45)+300,(vertices[0][sides[2][len]]*45)+300,(vertices[1][sides[2][len]]*45)+300,(vertices[2][sides[2][len]]*45)+300)
+                    p.line((vertices[0][sides[2][len]]*45)+300,(vertices[1][sides[2][len]]*45)+300,(vertices[2][sides[2][len]]*45)+300,(vertices[0][sides[0][len]]*45)+300,(vertices[1][sides[0][len]]*45)+300,(vertices[2][sides[0][len]]*45)+300)
                     len+=1;
                 }
                 else{
