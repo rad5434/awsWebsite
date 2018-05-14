@@ -51,22 +51,19 @@ function sketch(num,drawingSketches){
     check();
 
     function check(){
-        if(x==0){
-            geometry = new THREE.Geometry();    
-                geometry.vertices.push(
-                  new THREE.Vector3((vertices[0][sides[0][len]]*10)+200,(vertices[1][sides[0][len]]*10)+200,(vertices[2][sides[0][len]]*10)+200),
-                  new THREE.Vector3((vertices[0][sides[1][len]]*10)+200,(vertices[1][sides[1][len]]*10)+200,(vertices[2][sides[1][len]]*10)+200),
-                  new THREE.Vector3((vertices[0][sides[2][len]]*10)+200,(vertices[1][sides[2][len]]*10)+200,(vertices[2][sides[2][len]]*10)+200)
-                );
-                geometry.faces.push(new THREE.Face3(0,1,2));
-                geometry.computeBoundingSphere();
-            material = new THREE.MeshBasicMaterial({color: 0xffff00});
-            scene_array[x] = new THREE.Mesh(geometry, material );
-            scene.add(scene_array[x]);
-            x=x+1
-            setTimeout(check, 1000); // check again in a second
-            //check()
-        }
+        geometry = new THREE.Geometry();    
+            geometry.vertices.push(
+              new THREE.Vector3((vertices[0][sides[0][len]]*10)+200,(vertices[1][sides[0][len]]*10)+200,(vertices[2][sides[0][len]]*10)+200),
+              new THREE.Vector3((vertices[0][sides[1][len]]*10)+200,(vertices[1][sides[1][len]]*10)+200,(vertices[2][sides[1][len]]*10)+200),
+              new THREE.Vector3((vertices[0][sides[2][len]]*10)+200,(vertices[1][sides[2][len]]*10)+200,(vertices[2][sides[2][len]]*10)+200)
+            );
+            geometry.faces.push(new THREE.Face3(0,1,2));
+            geometry.computeBoundingSphere();
+        material = new THREE.MeshBasicMaterial({color: 0xffff00});
+        scene_array[x] = new THREE.Mesh(geometry, material );
+        scene.add(scene_array[x]);
+        x=x+1
+        setTimeout(check, 1000); // check again in a second
     }
 
     var render = function () {
