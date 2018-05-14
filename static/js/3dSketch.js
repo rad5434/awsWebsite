@@ -1,7 +1,5 @@
 function generation() {
   num = parseInt(document.getElementById("num_of_generations").value); //number the user wants
-  //document.getElementById("generate_2D").style.background = "gray";
-  //document.getElementById("storage").style.background = "";
   get3Ddata(num);	//this should get us the num in 3d
 }
 
