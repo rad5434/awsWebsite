@@ -22,7 +22,18 @@ function get3Ddata(numberOfSketchesNeeded){
 
 
 function sketch(num,drawingSketches){
+    var tempObject
+    var count=0;
+    var len=0;
+    var temp=10;
+    var sides
+    var vertices
     console.log(drawingSketches)
+    if(drawingSketches.results[count]){
+        tempObject=drawingSketches.results[count];
+        sides = tempObject[0].data.sides
+        vertices = tempObject[0].data.vertices
+    }
     var x=0
     var geometry,material,cone
     var renderer = new THREE.WebGLRenderer();
@@ -36,53 +47,35 @@ function sketch(num,drawingSketches){
     var light = new THREE.DirectionalLight(0xffffff, 0.55);
     light.position.set(0, 0, 1);
     scene.add(light);
+    var scene_array= new Array(tempObject[0].data.sides);   //scene array will the size of the total sides
     check();
 
     function check(){
         if(x==0){
             geometry = new THREE.Geometry();    
                 geometry.vertices.push(
-                  new THREE.Vector3(-1,1,0),
-                  new THREE.Vector3(-1,-1,0),
-                  new THREE.Vector3(1,-1,0)
+                  new THREE.Vector3((vertices[0][sides[0][len]]*10)+200,(vertices[1][sides[0][len]]*10)+200,(vertices[2][sides[0][len]]*10)+200),
+                  new THREE.Vector3((vertices[0][sides[1][len]]*10)+200,(vertices[1][sides[1][len]]*10)+200,(vertices[2][sides[1][len]]*10)+200),
+                  new THREE.Vector3((vertices[0][sides[2][len]]*10)+200,(vertices[1][sides[2][len]]*10)+200,(vertices[2][sides[2][len]]*10)+200)
                 );
                 geometry.faces.push(new THREE.Face3(0,1,2));
                 geometry.computeBoundingSphere();
             material = new THREE.MeshBasicMaterial({color: 0xffff00});
-            cone1 = new THREE.Mesh(geometry, material );
-            scene.add(cone1);
-            x=1
-            check()
-        }
-        else if(x==10){
-            mygeometry = new THREE.Geometry();    
-                mygeometry.vertices.push(
-                  new THREE.Vector3(1,-1,0),
-                  new THREE.Vector3(1,1,0),
-                  new THREE.Vector3(-1,1,0)
-                );
-                mygeometry.faces.push(new THREE.Face3(0,1,2));
-                mygeometry.computeBoundingSphere();
-                material = new THREE.MeshBasicMaterial({color: 0xffff00});
-                cone = new THREE.Mesh(mygeometry, material );
-                scene.add(cone);
-
-        }
-        else {
-            console.log(x)
+            scene_array[x] = new THREE.Mesh(geometry, material );
+            scene.add(scene_array[x]);
             x=x+1
             setTimeout(check, 1000); // check again in a second
-
+            //check()
         }
     }
 
     var render = function () {
         requestAnimationFrame(render);
-        cone1.rotation.x += 0.01;
-        cone1.rotation.y += 0.01;
-        if (x==10){
-            cone.rotation.x = cone1.rotation.x
-            cone.rotation.y = cone1.rotation.y 
+        scene_array[0].rotation.x += 0.01;
+        scene_array[0].rotation.y += 0.01;
+        for(var i=1;i<x;i++){           //goes up to the value of x
+            scene_array[i].rotation.x = scene_array[0].rotation.x += 0.01;
+            scene_array[i].rotation.y = scene_array[0].rotation.y += 0.01;
         }
         renderer.render(scene, camera);
 
