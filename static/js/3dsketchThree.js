@@ -52,14 +52,30 @@ function sketch(num,drawingSketches){
     //console.log(x)
     check();
     function check(){
-	if(x==tempObject[0].data.sides.len){
-		x=0;
+	console.log(tempObject[0].data.sides[0].length)
+	console.log("x")
+	if(x>=0){
+		/*x=0;
 		count+=1
 		tempObject=drawingSketches.results[count];
         	sides = tempObject[0].data.sides
         	vertices = tempObject[0].data.vertices
-		scene_array= new Array(tempObject[count].data.sides);
+		scene_array= new Array(tempObject[count].data.sides);*/
+		console.log("Finished")
+		var loader = new THREE.OBJLoader();
+		loader.load("80.obj", function(model) {
+    model.traverse(function(child) {
+        if (child instanceof THREE.Mesh) {
+            child.material.color = 0xffb830;
+        }
+    });
+    model.position.set(0, 0, -53);
+    scene.add(model);
+    window.model = model;
+    render.render(scene, camera);
+});
 	}
+	else{
 	console.log(x)
         geometry[x] = new THREE.Geometry();    
             geometry[x].vertices.push(
@@ -78,19 +94,20 @@ function sketch(num,drawingSketches){
         scene.add(scene_array[x]);
         x=x+1
         setTimeout(check, 10); // check again in a second
+	}
     }
 
     var render = function () {
         requestAnimationFrame(render);
 	//console.log(scene_array[0].rotation.x)
-	if (x%20==0){
+	/*if (x%20==0){
         scene_array[0].rotation.x += 0.02;
         scene_array[0].rotation.y += 0.02;
         for(var i=1;i<x;i++){           //goes up to the value of x
             scene_array[i].rotation.x = scene_array[0].rotation.x;
             scene_array[i].rotation.y = scene_array[0].rotation.y;
         }
-	}
+	}*/
         renderer.render(scene, camera);
 
     };
