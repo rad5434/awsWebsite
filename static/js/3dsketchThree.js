@@ -35,9 +35,10 @@ function sketch(num,drawingSketches){
         vertices = tempObject[0].data.vertices
     }
     var x=0
-    var geometry,material,cone
+    var geometry=new Array(tempObject[0].data.sides)
+    var material,cone
     var renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth/3, window.innerHeight/3);
+    renderer.setSize(window.innerWidth/1.3, window.innerHeight/1.3);
     document.body.appendChild(renderer.domElement);
 
     var scene = new THREE.Scene();
@@ -47,33 +48,49 @@ function sketch(num,drawingSketches){
     var light = new THREE.DirectionalLight(0xffffff, 0.55);
     light.position.set(0, 0, 1);
     scene.add(light);
-    var scene_array= new Array(tempObject[0].data.sides);   //scene array will the size of the total sides
+    var scene_array= new Array(tempObject[count].data.sides);   //scene array will the size of the total sides
+    //console.log(x)
     check();
-
     function check(){
-        geometry = new THREE.Geometry();    
-            geometry.vertices.push(
-              new THREE.Vector3((vertices[0][sides[0][len]]*10)+200,(vertices[1][sides[0][len]]*10)+200,(vertices[2][sides[0][len]]*10)+200),
-              new THREE.Vector3((vertices[0][sides[1][len]]*10)+200,(vertices[1][sides[1][len]]*10)+200,(vertices[2][sides[1][len]]*10)+200),
-              new THREE.Vector3((vertices[0][sides[2][len]]*10)+200,(vertices[1][sides[2][len]]*10)+200,(vertices[2][sides[2][len]]*10)+200)
+	if(x==tempObject[0].data.sides.len){
+		x=0;
+		count+=1
+		tempObject=drawingSketches.results[count];
+        	sides = tempObject[0].data.sides
+        	vertices = tempObject[0].data.vertices
+		scene_array= new Array(tempObject[count].data.sides);
+	}
+	console.log(x)
+        geometry[x] = new THREE.Geometry();    
+            geometry[x].vertices.push(
+              new THREE.Vector3((vertices[0][sides[0][len]]),(vertices[1][sides[0][len]]),(vertices[2][sides[0][len]])),
+              new THREE.Vector3((vertices[0][sides[1][len]]),(vertices[1][sides[1][len]]),(vertices[2][sides[1][len]])),
+              new THREE.Vector3((vertices[0][sides[2][len]]),(vertices[1][sides[2][len]]),(vertices[2][sides[2][len]]))
             );
-            geometry.faces.push(new THREE.Face3(0,1,2));
-            geometry.computeBoundingSphere();
-        material = new THREE.MeshBasicMaterial({color: 0xffff00});
-        scene_array[x] = new THREE.Mesh(geometry, material );
+	    console.log((vertices[0][sides[0][len]]),(vertices[1][sides[0][len]]),(vertices[2][sides[0][len]]));
+            console.log((vertices[0][sides[1][len]]),(vertices[1][sides[1][len]]),(vertices[2][sides[1][len]]));
+	    console.log((vertices[0][sides[2][len]]),(vertices[1][sides[2][len]]),(vertices[2][sides[2][len]]))
+	    len=len+1
+	    geometry[x].faces.push(new THREE.Face3(0,1,2));
+            geometry[x].computeBoundingSphere();
+        material = new THREE.MeshBasicMaterial({color: 0xF8F8FF});
+        scene_array[x] = new THREE.Mesh(geometry[x], material );
         scene.add(scene_array[x]);
         x=x+1
-        setTimeout(check, 1000); // check again in a second
+        setTimeout(check, 10); // check again in a second
     }
 
     var render = function () {
         requestAnimationFrame(render);
-        scene_array[0].rotation.x += 0.01;
-        scene_array[0].rotation.y += 0.01;
+	//console.log(scene_array[0].rotation.x)
+	if (x%20==0){
+        scene_array[0].rotation.x += 0.02;
+        scene_array[0].rotation.y += 0.02;
         for(var i=1;i<x;i++){           //goes up to the value of x
-            scene_array[i].rotation.x = scene_array[0].rotation.x += 0.01;
-            scene_array[i].rotation.y = scene_array[0].rotation.y += 0.01;
+            scene_array[i].rotation.x = scene_array[0].rotation.x;
+            scene_array[i].rotation.y = scene_array[0].rotation.y;
         }
+	}
         renderer.render(scene, camera);
 
     };
